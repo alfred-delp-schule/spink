@@ -6,4 +6,5 @@ Investiere in ökologische, soziale und auch kleine Unternehmen aus deiner Regio
 
 _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die teschniche Machbarmachung beweißen wird_
 
-<img src="https://github.com/alfred-delp-schule/spink/blob/main/SpinkLogoSchatten.png">
+
+![SpinkLogoSchatten](https://user-images.githubusercontent.com/72466440/174898868-a130a7d9-8b1b-412b-b7d0-b66c00124113.png)
