@@ -8,9 +8,6 @@ Investiere in ökologische, soziale und auch kleine Unternehmen aus deiner Regio
 
 _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die teschniche Machbarmachung beweißen wird_
 
-
-![SpinkLogoSchatten](https://user-images.githubusercontent.com/72466440/174898868-a130a7d9-8b1b-412b-b7d0-b66c00124113.png)
-
 <img width="750" alt="spink_logo" src="https://user-images.githubusercontent.com/72466440/174899973-7bf645b5-3d9d-4d1b-a8e7-8674fc0841f7.png">
 
 ## Ordner-Struktur
@@ -31,6 +28,6 @@ _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die tes
 ├── provider-login.php        # /provider-login: Login-Seite für Anbieter
 ├── provider-signup.php       # /provider-signup: Regestrierungs-Seite für Anbieter
 ├── logout.php                # /logout: Logout-Seite
-└── marketplace.php           # /app: Marktplatz (Früher geheim.php)
+└── marketplace.php           # /marketplace: Marktplatz (Früher geheim.php)
 ```
 
