@@ -1,5 +1,4 @@
 <?php 
-session_start();
 $pdo = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
 ?>
 <!DOCTYPE html> 
@@ -68,7 +67,7 @@ if(isset($_GET['register'])) {
 if($showFormular) {
 ?>
  
-<form action="?register=1" method="post">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 E-Mail:<br>
 <input type="email" size="40" maxlength="250" name="email"><br><br>
  
