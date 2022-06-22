@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['userid'])) {
-    die('Bitte zuerst <a href="login_kunde.php">einloggen</a>');
+    die('Bitte zuerst <a href="login">einloggen</a>');
 }
  
 //Abfrage der Nutzer ID vom Login
@@ -22,6 +22,6 @@ echo "Hallo User: ".$userid;
 
  
 
- <a href="logout.php">ausloggen</a>
+ <a href="logout">ausloggen</a>
 </body>
 </html>
