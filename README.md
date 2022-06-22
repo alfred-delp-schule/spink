@@ -15,14 +15,16 @@ _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die tes
 .
 ├── index.html
 ├── styles
-│    └── ...
+│    ├──  bootstrap
+│    └──  css
 ├── fonts
 │    └── ...
 ├── img
 │    └── ...
 ├── tools
 │    └── ...
-├── connect.php               # /connect.php
+├── faq.html                  # /faq
+├── connect.php               # /connect
 ├── login.php                 # /login: Login-Seite für Kunden
 ├── signup.php                # /signup: Regestrierungs-Seite für Kunden
 ├── provider-login.php        # /provider-login: Login-Seite für Anbieter
