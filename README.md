@@ -31,6 +31,6 @@ _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die tes
 ├── provider-login.php        # /provider-login: Login-Seite für Anbieter
 ├── provider-signup.php       # /provider-signup: Regestrierungs-Seite für Anbieter
 ├── logout.php                # /logout: Logout-Seite
-└── app.php                   # /app: Marktplatz (Früher geheim.php)
+└── marketplace.php                   # /app: Marktplatz (Früher geheim.php)
 ```
 
