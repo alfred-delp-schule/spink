@@ -24,6 +24,9 @@ _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die tes
 ├── tools
 │    └── ...
 ├── faq.html                  # /faq
+├── 404.html                  # /404
+├── impress.html              # /impress
+├── data-policy.html          # /data-policy
 ├── connect.php               # /connect
 ├── login.php                 # /login: Login-Seite für Kunden
 ├── signup.php                # /signup: Regestrierungs-Seite für Kunden
