@@ -1,48 +1,71 @@
-<?php 
-session_start();
-$pdo = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
- 
-if(isset($_GET['login'])) {
-    $email = $_POST['email'];
-    $passwort = $_POST['passwort'];
+<?php
+
+    $dbserver = 'rdbms.strato.de';
+    $dbname = 'dbs7102635';
+    $dbuser = 'dbu1528375';
+    $dbpassword = 'DieburgIstEineKleinstadt!';
+
+    $dsn = 'mysql:host='.$dbserver.';dbname='.$dbname;
+
+    $con = new PDO($dsn, $dbuser, $dbpassword);
+
+    $showForm = true;
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $email = $_POST['email'];
+        $passwort = $_POST['passwort'];
+
+        //Anmelden
+        $stmt = $con->prepare('SELECT * FROM kunde WHERE email = ?');
+        $result = $stmt->execute(array($email));
+        $user = $stmt->fetch();
+
+        if(password_verify($passwort, $user['passwort'])){
+            setcookie('user', $user['KId'], time() + 300, $secure = true);
+            echo 'Die Anmeldung war Erfolgreich.<br>
+                        Weiter zum <a href="marketplace.php"> Marktplatz </a>';
+            $showForm = false;
+
+        }else {
+            echo 'Passwort und oder Email sind Falsch<br>';
+        }
     
-    $statement = $pdo->prepare("SELECT * FROM kunde WHERE email = :email");
-    $result = $statement->execute(array('email' => $email));
-    $user = $statement->fetch();
-        
-    //Überprüfung des Passworts
-    if ($user !== false && password_verify($passwort, $user['passwort'])) {
-        $_SESSION['userid'] = $user['id'];
-        die('Login erfolgreich. Weiter zum <a href="marketplace">internen Bereich</a>');
-    } else {
-        $errorMessage = "E-Mail oder Passwort war ungültig<br>";
     }
-    
-}
+
+
+    if($showForm){
 ?>
+
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>Login</title>    
+  <title>Anmeldung</title>    
 </head> 
 <body>
- 
-<?php 
-if(isset($errorMessage)) {
-    echo $errorMessage;
-}
-?>
- 
-<form action="?login=1" method="post">
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
 E-Mail:<br>
 <input type="email" size="40" maxlength="250" name="email"><br><br>
  
 Dein Passwort:<br>
 <input type="password" size="40"  maxlength="250" name="passwort"><br>
  
-<input type="submit" value="Abschicken">
+<input type="submit" value="Anmelden">
+</form>
 
- <a href="registrieren_kunde.php">registrieren</a>
-</form> 
+
+<p>
+Zum <a href="signup.php"> Registrieren </a>
+
+
+</p>
+
+
+<?php
+    }
+
+?>
+
 </body>
 </html>

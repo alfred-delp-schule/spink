@@ -1,44 +1,43 @@
 <?php
-echo "<table style='border: solid 1px black;'>";
-echo "<tr><th>Id</th><th>Firstname</th><th>Lastname</th></tr>";
 
-class TableRows extends RecursiveIteratorIterator {
-  function __construct($it) {
-    parent::__construct($it, self::LEAVES_ONLY);
-  }
-
-  function current() {
-    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
-  }
-
-  function beginChildren() {
-    echo "<tr>";
-  }
-
-  function endChildren() {
-    echo "</tr>" . "\n";
-  }
+if(!isset($_COOKIE['user'])){
+  die('Keine Rechte!');
 }
 
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDBPDO";
+echo $_COOKIE['user'].' Hallo<br>';
 
-try {
-  $conn = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $stmt = $conn->prepare("SELECT kid, email, passwort FROM kunde");
-  $stmt->execute();
+$con = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
 
-  // set the resulting array to associative
-  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-    echo $v;
-  }
-} catch(PDOException $e) {
-  echo "Error: " . $e->getMessage();
+//Auslesen Tabelle Kunde
+$stmt = $con->query("SELECT * FROM kunde");
+echo 'Kunden: KId email Name Vorname RegDat UpDat Ort PLZ Straße HNr passwort<br>';
+while($res = $stmt->fetch()){
+echo $res['KId'].' | | '.$res['email'].' | | '.$res['Name'].' | | '.$res['Vorname'].' | | '.$res['RegDat'].' | | '.
+$res['UpDat'].' | | '.$res['Ort'].' | | '.$res['PLZ'].' | | '.$res['Straße'].' | | '.$res['HNr'].' | | '.
+$res['passwort'].'<br>';
 }
-$conn = null;
-echo "</table>";
-?> 
+echo '<br><br>';
+
+//Auslesen Tabelle Provider
+$stmt = $con->query("SELECT * FROM provider");
+echo 'Provider: KId email Name RegDat UpDat Ort PLZ Straße HNr passwort<br>';
+while($res = $stmt->fetch()){
+echo $res['PId'].' | | '.$res['email'].' | | '.$res['Name'].' | | '.$res['RegDat'].' | | '.
+$res['UpDat'].' | | '.$res['Ort'].' | | '.$res['PLZ'].' | | '.$res['Straße'].' | | '.$res['HNr'].' | | '.
+$res['passwort'].'<br>';
+}
+echo '<br><br>';
+
+
+
+
+/*
+
+//Errors anzeigen
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+*/
+?>
+
+
+
