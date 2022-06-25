@@ -1,27 +1,27 @@
 <?php
-session_start();
-if(!isset($_SESSION['userid'])) {
+
+if(!isset($_COOKIE['user'])) {
     die('Bitte zuerst <a href="login">einloggen</a>');
 }
  
 //Abfrage der Nutzer ID vom Login
-$userid = $_SESSION['userid'];
+$userid = $_COOKIE['user'];
  
 echo "Hallo User: ".$userid;
 ?>
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>Registrierung</title>    
+  <title>Marktplatz</title>    
 </head> 
 <body>
 
 <p>
-  <a href="test.php">test</a>
+  <a href="/tools/tools.php">test</a>
 </p>
 
  
 
- <a href="logout">ausloggen</a>
+ <a href="logout.php">ausloggen</a>
 </body>
 </html>
