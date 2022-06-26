@@ -22,7 +22,7 @@ _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die tes
 ├── img
 │    └── ...
 ├── tools
-│    └── ...
+│    └── tools.php            # /tools für entwickler (auslesen der DB)
 ├── faq.html                  # /faq
 ├── 404.html                  # /404
 ├── impress.html              # /impress

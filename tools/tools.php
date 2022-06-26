@@ -9,15 +9,15 @@
 
 
   echo $_COOKIE['user'].' Hallo<br>';
+  setcookie('user', $_COOKIE['user'], time()+300);
 
   $con = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
-  $falsecounter = 0;
-
   
 
   //Errors anzeigen
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
+
   
 ?>
 
@@ -168,21 +168,15 @@
           }
           echo '<br><br>';
         }
-
-        //Auslesen weiterer Tabellen
       }
 
       //Weitere modi
 
-    } else {
-      echo 'darfst du Überhaupt hier sein?';
-      setcookie('versuche', $_COOKIE['versuche']+1);
-      if($_COOKIE['versuche'] >= 3){
-        echo 'Geh weg';
-        die('<a href="login">login</a>');
-      }
     }
   }
+
+
+
 ?>
 
 
