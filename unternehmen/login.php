@@ -22,7 +22,7 @@
         $prov = $stmt->fetch();
 
         if(password_verify($passwort, $prov['passwort'])){
-            setcookie('prov', $prov['PId'], time() + 300, $secure = true);
+            setcookie('prov', $prov['PId'], time() + 300, $path = '/', $secure = true);
             echo 'Die Anmeldung war Erfolgreich.<br>
                         Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
             $showForm = false;
