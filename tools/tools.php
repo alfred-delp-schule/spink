@@ -5,7 +5,7 @@
   checkAllPages();
 
 
-  if(!isset($_COOKIE['user'])){
+  if(!checkLogin()){
     die('Keine Rechte!<a href="../kunde/login.php">einloggen</a>');
   }
   else if($_COOKIE['user'] != 1){
@@ -14,8 +14,8 @@
   echo $_COOKIE['user'].' Hallo<br>';
   
 
-
-  $con = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
+  //Datenbankverbindung erstellen
+  $con = getDBConnection();
   
 
   //Errors anzeigen

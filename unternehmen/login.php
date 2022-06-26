@@ -3,23 +3,15 @@
     include('../tools/functions.php');
     checkAllPages();
 
-    $dbserver = 'rdbms.strato.de';
-    $dbname = 'dbs7102635';
-    $dbuser = 'dbu1528375';
-    $dbpassword = 'DieburgIstEineKleinstadt!';
-
-    $dsn = 'mysql:host='.$dbserver.';dbname='.$dbname;
-
-    $con = new PDO($dsn, $dbuser, $dbpassword);
-
     $showForm = true;
 
     //Beretis Angemeldet
     if(checkProvLogin()){
-        $showForm = false;
-        echo 'Sie sind bereits angemeldet.<br>
-                    Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
+        redirectKonto();
     }
+
+    //Datenbankverbindung erstellen
+    $con = getDBConnection();
 
     //Anmeldefromular Verarbeitung
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -50,33 +42,33 @@
 
 <!DOCTYPE html> 
 <html> 
-<head>
-  <title>Anmeldung Unternehmen</title>    
-</head> 
-<body>
+    <head>
+        <title>Anmeldung Unternehmen</title>    
+    </head> 
+    <body>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-E-Mail:<br>
-<input type="email" size="40" maxlength="250" name="email"><br><br>
- 
-Dein Passwort:<br>
-<input type="password" size="40"  maxlength="250" name="passwort"><br>
- 
-<input type="submit" value="Anmelden">
-</form>
-
-
-<p>
-Zum <a href="provider-signup.php"> Registrieren </a>
-Zur <a href="../index.html"> Startseite </a>
-
-</p>
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+            E-Mail:<br>
+            <input type="email" size="40" maxlength="250" name="email"><br><br>
+            
+            Dein Passwort:<br>
+            <input type="password" size="40"  maxlength="250" name="passwort"><br>
+            
+            <input type="submit" value="Anmelden">
+        </form>
 
 
-<?php
-    }
+        <p>
+            Zum <a href="provider-signup.php"> Registrieren </a><br>
+            Zur <a href="../index.html"> Startseite </a><br>
 
-?>
+        </p>
 
-</body>
+
+        <?php
+            }
+
+        ?>
+
+    </body>
 </html>

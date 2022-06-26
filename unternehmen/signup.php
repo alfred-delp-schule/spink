@@ -3,26 +3,15 @@
     include('../tools/functions.php');
     checkAllPages();
 
-    $dbserver = 'rdbms.strato.de';
-    $dbname = 'dbs7102635';
-    $dbuser = 'dbu1528375';
-    $dbpassword = 'DieburgIstEineKleinstadt!';
+    //Datenbankverbindung erstellen
+    $con = getDBConnection();
 
-    $dsn = 'mysql:host='.$dbserver.';dbname='.$dbname;
-
-    $con = new PDO($dsn, $dbuser, $dbpassword);
-
+    //Variablen
     $showForm = true;
-?>
 
-<!DOCTYPE html> 
-<html> 
-<head>
-  <title>Registrierung Unternehmen</title>    
-</head> 
-<body>
 
-<?php
+    //Logik
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $email = $_POST['email'];
@@ -86,52 +75,53 @@
     if($showForm){
 ?>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-E-Mail:<br>
-<input type="email" size="40" maxlength="250" name="email"><br><br>
- 
-Dein Passwort:<br>
-<input type="password" size="40"  maxlength="250" name="passwort"><br>
- 
-Passwort wiederholen:<br>
-<input type="password" size="40" maxlength="250" name="passwort2"><br><br>
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <title>Registrierung Unternehmen</title>    
+    </head> 
+    <body>
 
-Name:<br>
-<input type="text" size="40" maxlength="50" name="name"><br><br>
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+            E-Mail:<br>
+            <input type="email" size="40" maxlength="250" name="email"><br><br>
+            
+            Dein Passwort:<br>
+            <input type="password" size="40"  maxlength="250" name="passwort"><br>
+            
+            Passwort wiederholen:<br>
+            <input type="password" size="40" maxlength="250" name="passwort2"><br><br>
 
-Wohnort:<br>
-<input type="text" size="40" maxlength="50" name="ort"><br><br>
+            Name:<br>
+            <input type="text" size="40" maxlength="50" name="name"><br><br>
 
-PLZ:<br>
-<input type="number" size="40" maxlength="11" name="plz"><br><br>
+            Wohnort:<br>
+            <input type="text" size="40" maxlength="50" name="ort"><br><br>
 
-Straße:<br>
-<input type="text" size="40" maxlength="250" name="str"><br><br>
+            PLZ:<br>
+            <input type="number" size="40" maxlength="11" name="plz"><br><br>
 
-Hausnummer:<br>
-<input type="number" size="40" maxlength="4" name="hnr"><br><br>
- 
-<input type="submit" value="Abschicken">
-</form>
+            Straße:<br>
+            <input type="text" size="40" maxlength="250" name="str"><br><br>
 
-
-<p>
-Zum <a href="login.php"> Login </a>
-Zur <a href="../index.html"> Startseite </a>
-
-
-</p>
-
-
-<?php
-    }
+            Hausnummer:<br>
+            <input type="number" size="40" maxlength="4" name="hnr"><br><br>
+            
+            <input type="submit" value="Abschicken">
+        </form>
 
 
+        <p>
+            Zum <a href="login.php"> Login </a>
+            Zur <a href="../index.html"> Startseite </a>
 
-    
+        </p>
 
 
-?>
+        <?php
+            }
+            
+        ?>
 
-</body>
+    </body>
 </html>
