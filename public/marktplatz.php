@@ -1,28 +1,31 @@
 <?php
 
-  include('../tools/functions.php');
-  checkAllPages();
+    include('../tools/functions.php');
+    checkAllPages();
 
-  if(checkKundeLogin()){
+    //Datenbankverbindung erstellen
+    $con = getDBConnection();
+
+    if(checkKundeLogin()){
     echo 'Hallo Kunde '.$_COOKIE['user'];
-  }
-  if(checkProvLogin()){
+    }
+    if(checkProvLogin()){
     echo 'Hallo Unternehmen '.$_COOKIE['prov'];
-  }
+    }
 
 ?>
 <!DOCTYPE html> 
 <html> 
-<head>
-  <title>Marktplatz</title>    
-</head> 
-<body>
+    <head>
+        <title>Marktplatz</title>    
+    </head> 
+    <body>
 
-<p>
-  <a href="../tools/tools.php">test</a><br>
-  <a href="../index.html">start</a><br>
-</p>
+        <p>
+            <a href="../tools/tools.php">test</a><br>
+            <a href="../index.html">start</a><br>
+        </p>
 
 
-</body>
+    </body>
 </html>

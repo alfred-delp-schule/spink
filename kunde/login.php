@@ -4,23 +4,13 @@
     include('../tools/functions.php');
     checkAllPages();
 
-    $dbserver = 'rdbms.strato.de';
-    $dbname = 'dbs7102635';
-    $dbuser = 'dbu1528375';
-    $dbpassword = 'DieburgIstEineKleinstadt!';
-
-    $dsn = 'mysql:host='.$dbserver.';dbname='.$dbname;
-
-    $con = new PDO($dsn, $dbuser, $dbpassword);
-
     $showForm = true;
 
     //Bereits Angemeldet
-    if(checkKundeLogin()){
-        $showForm = false;
-        echo 'Sie sind bereits angemeldet.<br>
-                    Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
-    }
+    checkLoginRedirectKonto();
+
+    //Datenbankverbindung erstellen
+    $con = getDBConnection();
 
     //Anmeldeformular Verarbeitung
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
