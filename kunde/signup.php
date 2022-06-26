@@ -1,5 +1,8 @@
 <?php
 
+    include('../tools/functions.php');
+    checkAllPages();
+
     $dbserver = 'rdbms.strato.de';
     $dbname = 'dbs7102635';
     $dbuser = 'dbu1528375';

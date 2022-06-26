@@ -1,15 +1,19 @@
 <?php
 
+
+  include('functions.php');
+  checkAllPages();
+
+
   if(!isset($_COOKIE['user'])){
-    die('Keine Rechte!<a href="../login">einloggen</a>');
+    die('Keine Rechte!<a href="../kunde/login.php">einloggen</a>');
   }
   else if($_COOKIE['user'] != 1){
-    die('Zu wenig Rechte!<a href="../login">einloggen</a>');
+    die('Zu wenig Rechte!<a href="../kunde/login.php">einloggen</a>');
   }
-
-
   echo $_COOKIE['user'].' Hallo<br>';
-  setcookie('user', $_COOKIE['user'], time()+300, $path = '/', $secure = true);
+  
+
 
   $con = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
   
@@ -31,14 +35,15 @@
 
   <p>
     Links<br>
-    <a href="/tools/tools.php">tools</a><br>
-    <a href="../signup.php">signup</a><br>
-    <a href="../login.php">login</a><br>
-    <a href="../logout.php">logout</a><br>
-    <a href="../provider-signup.php">p signup</a><br>
-    <a href="../provider-login.php">p login</a><br>
+    <a href="tools.php">tools</a><br>
+    <a href="../kunde/signup.php">signup</a><br>
+    <a href="../kunde/login.php">login</a><br>
+    <a href="../kunde/logout.php">logout</a><br>
+    <a href="../unternehmen/signup.php">p signup</a><br>
+    <a href="../unternehmen/login.php">p login</a><br>
+    <a href="../unternehmen/logout.php">p logout</a><br>
     <a href="../index.html">home</a><br>
-    <a href="../marketplace.php">markplatz</a><br>
+    <a href="../public/marktplatz.php">markplatz</a><br>
   </p>
   <br><hr><br>
 

@@ -1,5 +1,9 @@
 <?php
 
+
+    include('../tools/functions.php');
+    checkAllPages();
+
     $dbserver = 'rdbms.strato.de';
     $dbname = 'dbs7102635';
     $dbuser = 'dbu1528375';
@@ -11,6 +15,14 @@
 
     $showForm = true;
 
+    //Bereits Angemeldet
+    if(checkKundeLogin()){
+        $showForm = false;
+        echo 'Sie sind bereits angemeldet.<br>
+                    Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
+    }
+
+    //Anmeldeformular Verarbeitung
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $email = $_POST['email'];
@@ -22,7 +34,7 @@
         $user = $stmt->fetch();
 
         if(password_verify($passwort, $user['passwort'])){
-            setcookie('user', $user['KId'], time() + 300, $path = '/', $secure = true);
+            setKundeLogin($user['KId']);
             echo 'Die Anmeldung war Erfolgreich.<br>
                         Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
             $showForm = false;

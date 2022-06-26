@@ -1,8 +1,13 @@
 <?php
 
-  if(isset($_COOKIE['user'])){
-    setcookie('user', $user['KId'], time() + 300, $path = '/', $secure = true);
-    echo 'Hallo user '.$_COOKIE['user'];
+  include('../tools/functions.php');
+  checkAllPages();
+
+  if(checkKundeLogin()){
+    echo 'Hallo Kunde '.$_COOKIE['user'];
+  }
+  if(checkProvLogin()){
+    echo 'Hallo Unternehmen '.$_COOKIE['prov'];
   }
 
 ?>
@@ -14,7 +19,8 @@
 <body>
 
 <p>
-  <a href="../tools/tools.php">test</a>
+  <a href="../tools/tools.php">test</a><br>
+  <a href="../index.html">start</a><br>
 </p>
 
 
