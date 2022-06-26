@@ -21,18 +21,31 @@ _hier wird im weiteren ein funktionierender Prototyp entwickelt, welcher die tes
 │    └── ...
 ├── img
 │    └── ...
-├── tools
-│    └── tools.php            # /tools für entwickler (auslesen der DB)
-├── faq.html                  # /faq
-├── 404.html                  # /404
-├── impress.html              # /impress
-├── data-policy.html          # /data-policy
-├── connect.php               # /connect
-├── login.php                 # /login: Login-Seite für Kunden
-├── signup.php                # /signup: Regestrierungs-Seite für Kunden
-├── provider-login.php        # /provider-login: Login-Seite für Anbieter
-├── provider-signup.php       # /provider-signup: Regestrierungs-Seite für Anbieter
-├── logout.php                # /logout: Logout-Seite
-└── marketplace.php           # /marketplace: Marktplatz (Früher geheim.php)
+├── kunde                                   ### Seiten für Kunden
+│    ├── anteil-kaufen.php                  # /Anteile kaufen
+│    ├── bankverbindung-erstellen.php       # /Bankvervindung hinterlegen
+│    ├── login.php                          # /Login-Seite
+│    ├── logout.php                         # /Logout-Seite
+│    └── signup.php                         # /Regestrierungs-Seite
+│
+├── public                                  ### Seiten für Alle
+│    └── marktplatz.php                     # /Marktplatz
+│
+├── tools                                   ### Seiten für Devs
+│    ├── index.html                         # /vernachlässigtes Inhaltsverzeichnis
+│    └── tools.php                          # /tools für entwickler (auslesen der DB)
+│
+├── unternehmen                             ### Seiten für Unternehmen
+│    ├── anteil-erstellen.php               # /Anteile erstellen
+│    ├── bankverbindung-erstellen.php       # /Bankvervindung hinterlegen
+│    ├── login.php                          # /Login-Seite
+│    ├── logout.php                         # /Logout-Seite
+│    └── signup.php                         # /Regestrierungs-Seite
+│
+├── 404.html                             # /404
+├── data-policy.html                     # /data-policy
+├── faq.html                             # /faq
+├── impress.html                         # /impress
+├── index.html                           # /Startseite
 ```
 

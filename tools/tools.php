@@ -9,7 +9,7 @@
 
 
   echo $_COOKIE['user'].' Hallo<br>';
-  setcookie('user', $_COOKIE['user'], time()+300);
+  setcookie('user', $_COOKIE['user'], time()+300, $secure = true);
 
   $con = new PDO('mysql:host=rdbms.strato.de;dbname=dbs7102635', 'dbu1528375', 'DieburgIstEineKleinstadt!');
   

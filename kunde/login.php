@@ -24,7 +24,7 @@
         if(password_verify($passwort, $user['passwort'])){
             setcookie('user', $user['KId'], time() + 300, $secure = true);
             echo 'Die Anmeldung war Erfolgreich.<br>
-                        Weiter zum <a href="marketplace.php"> Marktplatz </a>';
+                        Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
             $showForm = false;
 
         }else {
@@ -57,7 +57,7 @@ Dein Passwort:<br>
 
 <p>
 Zum <a href="signup.php"> Registrieren </a>
-
+Zur <a href="../index.html"> Startseite </a>
 
 </p>
 

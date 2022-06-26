@@ -119,7 +119,7 @@ Hausnummer:<br>
 
 <p>
 Zum <a href="login.php"> Login </a>
-
+Zur <a href="../index.html"> Startseite </a>
 
 </p>
 
