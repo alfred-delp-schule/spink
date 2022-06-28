@@ -9,6 +9,10 @@
     if(checkProvLogin()){
         redirectKonto();
     }
+    if(checkKundeLogin()){
+        header('Location: ../kunde/konto.php');
+        exit();
+    }
 
     //Datenbankverbindung erstellen
     $con = getDBConnection();
