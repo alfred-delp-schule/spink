@@ -8,7 +8,7 @@
   if(!checkLogin()){
     die('Keine Rechte!<a href="../kunde/login.php">einloggen</a>');
   }
-  else if($_COOKIE['user'] != 1){
+  else if($_COOKIE['user'] != 16){
     die('Zu wenig Rechte!<a href="../kunde/login.php">einloggen</a>');
   }
   echo $_COOKIE['user'].' Hallo<br>';
@@ -52,6 +52,8 @@
     1: Auslesen<br>
     2: Id Auslesen<br>
     3: Id löschen<br>
+    4: Tabelle ändern [4, Tabellenummer, ZuÄnderndeID, Spaltennamen, NeuerInhalt]<br>
+    5: Bankverbindungen aktivieren<br>
     <br>
 
     Tabelle:<br>
@@ -77,8 +79,11 @@
     Input Id:<br>
     <input type="number" name="input"><br><br>
 
-    Zusatz Input:<br>
+    Spalten Input:<br>
     <input name="name"><br><br>
+
+    Neuer Input:<br>
+    <input name="neu"><br><br>
 
     Zusatz Input:<br>
     <input name="pw"><br><br>
@@ -100,9 +105,10 @@
     $table = $_POST['table'];
     $input = $_POST['input'];
     $name = $_POST['name'];
+    $neu = $_POST['neu'];
     $pw = $_POST['pw'];
 
-    echo 'Mode '.$mode.'<br>table '.$table.'<br>input id '.$input.'<br>input '.$name.'<br>';
+    echo 'Mode '.$mode.'<br>table '.$table.'<br>input id '.$input.'<br>input '.$name.'<br>input neu '.$neu.'<br>';
 
 
     if(password_verify($pw, password_hash('pw', PASSWORD_ARGON2I))){
@@ -173,6 +179,39 @@
           }
           echo '<br><br>';
         }
+
+        //Auslesen Tabelle Bankverbindung
+        if($table == 7 || $table == 0){
+          $stmt = $con->query("SELECT * FROM Bankverbindung");
+          echo 'Bankverbindung: KId PId BId BLZ BIC KontoArt KontoNr IBAN Aktiv<br>';
+          while($res = $stmt->fetch()){
+            echo $res['KId'].' | | '.$res['PId'].' | | '.$res['BId'].' | | '.$res['BLZ'].' | | '.
+            $res['BIC'].' | | '.$res['KontoArt'].' | | '.$res['KontoNr'].' | | '.$res['IBAN'].
+            ' | | '.$res['Aktiv'].'<br>';
+          }
+          echo '<br><br>';
+        }
+      }
+
+      //Ändern von Inhalten
+      if($mode == 4){
+
+      }
+
+      //Bankverbindungen aktivieren
+      if($mode == 5){
+
+        $stmt = $con->prepare('UPDATE Bankverbindung SET Aktiv = true WHERE BId = ?');
+        $result = $stmt->execute(array($input));
+
+        $stmt = $con->query("SELECT * FROM Bankverbindung");
+          echo 'Bankverbindung: KId PId BId BLZ BIC KontoArt KontoNr IBAN Aktiv<br>';
+          while($res = $stmt->fetch()){
+            echo $res['KId'].' | | '.$res['PId'].' | | '.$res['BId'].' | | '.$res['BLZ'].' | | '.
+            $res['BIC'].' | | '.$res['KontoArt'].' | | '.$res['KontoNr'].' | | '.$res['IBAN'].
+            ' | | '.$res['Aktiv'].'<br>';
+          }
+          echo '<br><br>';
       }
 
       //Weitere modi

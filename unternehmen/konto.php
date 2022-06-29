@@ -40,10 +40,39 @@
         </div>
 
         <div>
+            <h2>
+                Nützliche Links
+            </h2>
+
             <a href='anteil-erstellen.php'>Anteil erstellen</a><br>
             <a href='bankverbindung-erstellen.php'>Bankverbindung hinterlegen</a><br>
             <a href='logout.php'>ausloggen</a><br>
             <a href='../public/marktplatz.php'>Marktplatz</a><br>
+        </div>
+
+
+        <div>
+            <h2>
+                Bankdaten
+            </h2>
+            <ul>    
+                <?php
+                    $stmt = $con->prepare('SELECT * from Bankverbindung WHERE PId = ?');
+                    $result = $stmt->execute(array($_COOKIE['prov']));
+                    $index = 1;
+                    while($res = $stmt->fetch()){
+                        echo '<li>'.$index.' | | '.$res['BLZ'].' | | '.
+                        $res['BIC'].' | | '.$res['KontoArt'].' | | '.$res['KontoNr'].' | | '.$res['IBAN'].
+                        ' | | ';
+                        if($res['Aktiv']){
+                            echo 'Aktiv</li>';
+                        } else {
+                            echo 'Inaktiv</li>';
+                        }
+                        $index++;
+                    }
+                ?>
+            </ul>
         </div>
 
     </body>

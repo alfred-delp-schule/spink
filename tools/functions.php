@@ -28,7 +28,11 @@
     }
 
     function checkLogin(){
-        if(checkKundeLogin() || checkProvLogin()){
+        if(checkKundeLogin()){
+            refreshKundeLogin();
+            return true;
+        } else if(checkProvLogin()){
+            refreshProvLogin();
             return true;
         } else {
             return false;
