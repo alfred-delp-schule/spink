@@ -1,7 +1,32 @@
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
+# This tag loads the rewrite module
+    <IfModule mod_rewrite.c>
+# enable the rewrite engine
+    RewriteEngine On
+# Set your root directory
+    RewriteBase /
 
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
+# Remove the .html extension
+    RewriteCond %{THE_REQUEST} ^GET\ (.*)\.html\ HTTP
+    RewriteRule (.*)\.html$ $1 [R=301]
 
-ErrorDocument 404 /404.html
+# Remove the .php extension
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+
+# Remove index and reference the directory
+    RewriteRule (.*)/index$ $1/ [R=301]
+
+# Remove trailing slash if not a directory
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} /$
+    RewriteRule (.*)/ $1 [R=301]
+
+# Forward request to html file, **but don't redirect (bot friendly)**
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteRule (.*) $1\.html [L]
+    </IfModule>
+
+# Redirect for custom Error Pages
+    ErrorDocument 404 /404.html
+
