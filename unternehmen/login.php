@@ -30,6 +30,7 @@
 
         if(password_verify($passwort, $prov['passwort'])){
             setProvLogin($prov['PId']);
+            redirectKonto();
             echo 'Die Anmeldung war Erfolgreich.<br>
                         Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
             $showForm = false;

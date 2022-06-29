@@ -137,7 +137,7 @@
           $stmt = $con->query("SELECT * FROM Anteil");
           echo 'Anteile: Aid Pid Beschreibung Anzahl<br>';
           while($res = $stmt->fetch()){
-            echo $res['Aid'].' | | '.$res['Pid'].' | | '.$res['Beschreibung'].' | | '.$res['Anzahl'].'<br>';
+            echo $res['AId'].' | | '.$res['PId'].' | | '.$res['Beschreibung'].' | | '.$res['Anzahl'].'<br>';
           }
           echo '<br><br>';
         }
@@ -147,7 +147,7 @@
           $stmt = $con->query("SELECT * FROM AnteilsBesitz");
           echo 'AnteilsBesitz: Aid Uid Kid KaufWert KaufZeitpunkt Anzahl<br>';
           while($res = $stmt->fetch()){
-            echo $res['Aid'].' | | '.$res['Uid'].' | | '.$res['Kid'].' | | '.$res['KaufWert'].' | | '.
+            echo $res['AId'].' | | '.$res['UId'].' | | '.$res['KId'].' | | '.$res['KaufWert'].' | | '.
             $res['KaufZeitpunkt'].' | | '.$res['Anzahl'].'<br>';
           }
           echo '<br><br>';
@@ -158,7 +158,7 @@
           $stmt = $con->query("SELECT * FROM Orderbuch");
           echo 'Orderbuch: Aid Uid Kid Anzahl Ask maxWert minWert Zeitpunkt<br>';
           while($res = $stmt->fetch()){
-            echo $res['Aid'].' | | '.$res['Uid'].' | | '.$res['Kid'].' | | '.$res['Anzahl'].' | | '.
+            echo $res['AId'].' | | '.$res['UId'].' | | '.$res['KId'].' | | '.$res['Anzahl'].' | | '.
             $res['Ask'].' | | '.$res['maxWert'].' | | '.$res['minWert'].' | | '.$res['Zeitpunkt'].'<br>';
           }
           echo '<br><br>';
@@ -169,7 +169,7 @@
           $stmt = $con->query("SELECT * FROM Wert");
           echo 'Wert: Aid Pid Wert Zeitpunkt<br>';
           while($res = $stmt->fetch()){
-            echo $res['Aid'].' | | '.$res['Pid'].' | | '.$res['Wert'].' | | '.$res['Zeitpunkt'].'<br>';
+            echo $res['AId'].' | | '.$res['PId'].' | | '.$res['Wert'].' | | '.$res['Zeitpunkt'].'<br>';
           }
           echo '<br><br>';
         }
