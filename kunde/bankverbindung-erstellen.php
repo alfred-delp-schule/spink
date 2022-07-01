@@ -77,16 +77,16 @@
 
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             Bankleitzahl:<br>
-            <input type="text" size="40" maxlength="12" name="blz"><br><br>
+            <input type="text" size="40" maxlength="11" name="blz"><br><br>
             
             BIC:<br>
-            <input type="text" size="40"  maxlength="12" name="bic"><br><br>
+            <input type="text" size="40"  maxlength="11" name="bic"><br><br>
             
             Konto Art:<br>
             <input type="text" size="40" maxlength="50" name="kontoArt"><br><br>
 
             Konto Nummer:<br>
-            <input type="number" size="40" maxlength="10" name="kontoNr"><br><br>
+            <input type="number" size="40" maxlength="11" name="kontoNr"><br><br>
 
             IBAN:<br>
             <input type="text" size="40" maxlength="30" name="iban"><br><br>
