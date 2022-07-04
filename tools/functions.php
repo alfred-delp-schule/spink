@@ -5,46 +5,20 @@
 
         redirectHTTPS();
 
-        checkKundeLogin();
-        checkProvLogin();
-    }
-
-    function checkKundeLogin(){
-        if(isset($_COOKIE['user'])){
-            refreshKundeLogin();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function checkProvLogin(){
-        if(isset($_COOKIE['prov'])){
-            refreshProvLogin();
-            return true;
-        } else {
-            return false;
-        }
+        checkLogin();
     }
 
     function checkLogin(){
-        if(checkKundeLogin()){
-            refreshKundeLogin();
-            return true;
-        } else if(checkProvLogin()){
-            refreshProvLogin();
+        if(isset($_COOKIE['user'])){
+            refreshLogin();
             return true;
         } else {
             return false;
         }
     }
 
-    function refreshKundeLogin(){
+    function refreshLogin(){
         setcookie('user', $_COOKIE['user'], time() + 300, '/', 'spink-trade.de', true, true);
-    }
-
-    function refreshProvLogin(){
-        setcookie('prov', $_COOKIE['prov'], time() + 300, '/', 'spink-trade.de', true, true);
     }
 
     function redirectHTTPS(){
@@ -64,31 +38,13 @@
         exit();
     }
 
-    function redirectKonto(){
-        header('Location: konto.php');
-        exit();
-    }
-
-    function redirectLogin(){
-        header('Location: login.php');
-        exit();
-    }
-
-    function setKundeLogin($id){
+    function setLogin($id){
         setcookie('user', $id, time() + 300, '/', 'spink-trade.de', true, true);
     }
 
-    function setProvLogin($id){
-        setcookie('prov', $id, time() + 300, '/', 'spink-trade.de', true, true);
-    }
-
     function logout(){
-        if(checkKundeLogin()){
-            setcookie('user', null, time() + 300, '/', 'spink-trade.de', true, true);
-        }
-        if(checkProvLogin()){
-            setcookie('prov', null, time() + 300, '/', 'spink-trade.de', true, true);
-        }
+        setcookie('user', null, time() + 300, '/', 'spink-trade.de', true, true);
+        
         redirectStart();
     }
 
@@ -106,13 +62,6 @@
 
     function getUser($id, $con){
         $stmt = $con->prepare('SELECT * FROM kunde WHERE KId = ?');
-        $result = $stmt->execute(array($id));
-        $user = $stmt->fetch();
-        return $user;
-    }
-
-    function getProv($id, $con){
-        $stmt = $con->prepare('SELECT * FROM provider WHERE PId = ?');
         $result = $stmt->execute(array($id));
         $user = $stmt->fetch();
         return $user;

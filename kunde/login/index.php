@@ -1,17 +1,14 @@
 <?php
 
 
-    include('../tools/functions.php');
+    include('../../tools/functions.php');
     checkAllPages();
 
     $showForm = true;
 
     //Bereits Angemeldet
-    if(checkKundeLogin()){
-        redirectKonto();
-    }
-    if(checkProvLogin()){
-        header('Location: ../unternehmen/konto.php');
+    if(checkLogin()){
+        header('Location: https://spink-trade.de/kunde');
         exit();
     }
 
@@ -30,8 +27,9 @@
         $user = $stmt->fetch();
 
         if(password_verify($passwort, $user['passwort'])){
-            setKundeLogin($user['KId']);
-            redirectKonto();
+            setLogin($user['KId']);
+            header('Location: https://spink-trade.de/kunde');
+            exit();
             echo 'Die Anmeldung war Erfolgreich.<br>
                         Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
             $showForm = false;
@@ -66,8 +64,8 @@ Dein Passwort:<br>
 
 
 <p>
-Zum <a href="signup.php"> Registrieren </a>
-Zur <a href="../index.html"> Startseite </a>
+Zum <a href="../signup"> Registrieren </a>
+Zur <a href="../../"> Startseite </a>
 
 </p>
 

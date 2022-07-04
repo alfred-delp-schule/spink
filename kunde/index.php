@@ -4,8 +4,9 @@
     checkAllPages();
 
     //Noch nicht Angemeldet
-    if(!checkKundeLogin()){
-        redirectLogin();
+    if(!checkLogin()){
+        header('Location: https://spink-trade.de/kunde/login');
+        exit();
     }
 
     //Datenbankverbindung erstellen
@@ -31,7 +32,6 @@
 
             <ul>
                 <li>Name: <?php echo $user['Name']; ?></li><br>
-                <li>Vorname: <?php echo $user['Vorname']; ?></li><br>
                 <li>email: <?php echo $user['email']; ?></li><br>
                 <li>Wohnort: <?php echo $user['Ort']; ?></li><br>
                 <li>Postleitzahl: <?php echo $user['PLZ']; ?></li><br>
@@ -45,10 +45,10 @@
                 Nützliche Links
             </h2>
 
-            <a href='anteil-kaufen.php'>Anteil kaufen</a><br>
-            <a href='bankverbindung-erstellen.php'>Bankverbindung hinterlegen</a><br>
-            <a href='logout.php'>ausloggen</a><br>
-            <a href='../public/marktplatz.php'>Marktplatz</a><br>
+            <a href='anteil/kaufen'>Anteil kaufen</a><br>
+            <a href='bankverbindung/erstellen'>Bankverbindung hinterlegen</a><br>
+            <a href='logout'>ausloggen</a><br>
+            <a href='../public'>Marktplatz</a><br>
         </div>
 
         
@@ -62,9 +62,7 @@
                     $result = $stmt->execute(array($_COOKIE['user']));
                     $index = 1;
                     while($res = $stmt->fetch()){
-                        echo '<li>'.$index.' | | '.$res['BLZ'].' | | '.
-                        $res['BIC'].' | | '.$res['KontoArt'].' | | '.$res['KontoNr'].' | | '.$res['IBAN'].
-                        ' | | ';
+                        echo '<li>'.$index.' | | '.$res['BIC'].' | | '.$res['IBAN'].' | | ';
                         if($res['Aktiv']){
                             echo 'Aktiv</li>';
                         } else {

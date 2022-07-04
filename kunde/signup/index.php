@@ -1,6 +1,6 @@
 <?php
 
-    include('../tools/functions.php');
+    include('../../tools/functions.php');
     checkAllPages();
 
     //Datenbankverbindung erstellen
@@ -58,12 +58,14 @@
         if(!$error){
             $pwhash = password_hash($passwort, PASSWORD_ARGON2I);
 
-            $stmt = $con->prepare('INSERT INTO kunde (email, passwort, Ort, PLZ, Straße, HNr, Name, Vorname)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $con->prepare('INSERT INTO kunde (email, passwort, Ort, PLZ, Straße, HNr, Name)
+                                    VALUES (?, ?, ?, ?, ?, ?, ?)');
 
-            $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name, $vname));
+            $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name));
 
             if($result){
+                header('Location: https://spink-trade.de/kunde/login');
+                exit();
                 echo 'Die Registrierung war Erfolgreich.<br>
                         Weiter zum <a href="login.php"> Login </a>';
                 $showForm = false;
@@ -97,9 +99,6 @@
             Name:<br>
             <input type="text" size="40" maxlength="50" name="name"><br><br>
 
-            Vorname:<br>
-            <input type="text" size="40" maxlength="50" name="vname"><br><br>
-
             Wohnort:<br>
             <input type="text" size="40" maxlength="50" name="ort"><br><br>
 
@@ -117,8 +116,8 @@
 
 
         <p>
-            Zum <a href="login.php"> Login </a><br>
-            Zur <a href="../index.html"> Startseite </a><br>
+            Zum <a href="../login"> Login </a><br>
+            Zur <a href="../../"> Startseite </a><br>
 
         </p>
 
