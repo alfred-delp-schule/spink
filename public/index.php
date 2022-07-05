@@ -6,11 +6,8 @@
     //Datenbankverbindung erstellen
     $con = getDBConnection();
 
-    if(checkKundeLogin()){
+    if(checkLogin()){
     echo 'Hallo Kunde '.$_COOKIE['user'];
-    }
-    if(checkProvLogin()){
-    echo 'Hallo Unternehmen '.$_COOKIE['prov'];
     }
 
 ?>
@@ -22,8 +19,8 @@
     <body>
 
         <p>
-            <a href="../tools/tools.php">test</a><br>
-            <a href="../index.html">start</a><br>
+            <a href="../tools/tools.php">tools</a><br>
+            <a href="../">start</a><br>
         </p>
 
 

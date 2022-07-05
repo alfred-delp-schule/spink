@@ -5,7 +5,7 @@
 
     //Noch nicht Angemeldet
     if(!checkLogin()){
-        header('Location: https://spink-trade.de/kunde/login');
+        header('Location: login');
         exit();
     }
 

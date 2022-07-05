@@ -4,7 +4,7 @@
     checkAllPages();
 
     if(!checkLogin()){
-        header('Location: https://spink-trade.de/kunde/login');
+        header('Location: ../../login');
         exit();
     }
 
@@ -65,7 +65,7 @@
             }
 
             if($result){
-                header('Location: https://spink-trade.de/kunde');
+                header('Location: ../../');
                 exit();
                 echo 'Die Order wurde erfolgreich in Auftrag gegeben.';
                 $showForm = false;

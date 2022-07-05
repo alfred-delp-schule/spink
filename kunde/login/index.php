@@ -8,7 +8,7 @@
 
     //Bereits Angemeldet
     if(checkLogin()){
-        header('Location: https://spink-trade.de/kunde');
+        header('Location: ../');
         exit();
     }
 
@@ -28,7 +28,7 @@
 
         if(password_verify($passwort, $user['passwort'])){
             setLogin($user['KId']);
-            header('Location: https://spink-trade.de/kunde');
+            header('Location: ../');
             exit();
             echo 'Die Anmeldung war Erfolgreich.<br>
                         Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';

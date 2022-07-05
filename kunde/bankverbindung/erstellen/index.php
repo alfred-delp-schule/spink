@@ -4,7 +4,8 @@
     checkAllPages();
 
     if(!checkLogin()){
-        redirectStart();
+        header('Location: ../../login');
+        exit();
     }
 
     //Datenbankverbindung erstellen
@@ -51,7 +52,7 @@
             $result = $stmt->execute(array($_COOKIE['user'], $bic, $iban, false));
 
             if($result){
-                header('Location: https://spink-trade.de/kunde');
+                header('Location: ../../');
                 exit();
                 echo 'Die Bankverbindung wurde erfolgreich hinterlegt.';
                 $showForm = false;

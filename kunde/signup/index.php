@@ -64,7 +64,7 @@
             $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name));
 
             if($result){
-                header('Location: https://spink-trade.de/kunde/login');
+                header('Location: ../login');
                 exit();
                 echo 'Die Registrierung war Erfolgreich.<br>
                         Weiter zum <a href="login.php"> Login </a>';
