@@ -124,5 +124,61 @@
         return $MaxWert;
     }
 
+
+    /*
+    Funktion transaktion
+    Attribute:
+        $aid: einzigartige id der Anteile, welche gehandelt werden soll
+
+    Funktionsweise:
+        - Variablen aus der Datenbank abfragen
+        - Für jeden händler wird
+            käufer:     Der Anteil als Besitz markiert
+            verkäufer:  Anteile abgezogen
+
+    */
+
+    function transaktion($aid){
+        //Variablen getten
+        $con = getDBConnection();
+        $stmt = $con->prepare('SELECT Wert from Wert WHERE AId = ? ORDER BY Wert DESC');
+        $result = $stmt->execute(array($aid));
+        $wert = $stmt->fetch()['Wert'];
+
+        $stmt = $con->prepare('SELECT * from Orderbuch WHERE AId = ?');
+        $result = $stmt->execute(array($aid));
+        $handler = $stmt->fetchAll();
+       
+
+        //Transaktion Durchführen für jeden händler
+        foreach($handler as $hand){
+            if($hand['Ask'] == 1){
+                //SQL Befehle Vorbereiten
+                $kaufen = $con->prepare('INSERT INTO AnteilsBesitz (AId, KId, KaufWert, Anzahl)
+                                        VALUES (?, ?, ?, ?)');
+                //Käufer
+                $res = $kaufen->execute(array($aid, $hand['KId'], $wert, $hand['Anzahl']));
+            } else {
+                //SQL Befehle Vorbereiten        
+                $getVerkaufen = $con->prepare('SELECT Anzahl from AnteilsBesitz WHERE AId = ? AND KId = ?');
+                $verkaufen = $con->prepare('UPDATE AnteilsBesitz SET Anzahl = ? WHERE AId = ? AND KId = ?');
+                //Verkäufer
+                $res = $getVerkaufen->execute(array($aid, $hand['KId']));
+                $momAnzahl = $getVerkaufen->fetch()['Anzahl'];
+                //Falls nicht genügend Anteile vorhanden nicht verkauft
+                if($momAnzahl - $hand['Anzahl'] >= 0){
+                    $verkaufen->execute(array($momAnzahl - $hand['Anzahl'], $aid, $hand['KId']));
+                }
+            }
+        }
+
+        //Orderbuch löschen und leere besitzer
+        $stmt = $con->prepare('DELETE from Orderbuch WHERE AId = ?');
+        $res = $stmt->execute(array($aid));
+        $stmt = $con->prepare('DELETE from AnteilsBesitz WHERE AId = ? AND Anzahl = 0');
+        $res = $stmt->execute(array($aid));
+
+    }
+
 ?>
     

@@ -65,6 +65,15 @@
             }
 
             if($result){
+                include('../../../tools/wertermittlung.php');
+                $aktienWert = wertermittlung($aid);
+                if($aktienWert != false){
+                    $stmt = $con->prepare('INSERT INTO Wert (AId Wert) VALUES (?, ?)');
+                    $res = $stmt->execute(array($aid, $aktienWert));
+                    
+                    transaktion($aid);
+                }
+
                 header('Location: ../../');
                 exit();
                 echo 'Die Order wurde erfolgreich in Auftrag gegeben.';
