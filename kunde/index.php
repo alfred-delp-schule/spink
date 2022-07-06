@@ -32,6 +32,7 @@
 
             <ul>
                 <li>Name: <?php echo $user['Name']; ?></li><br>
+                <li>Vorname: <?php echo $user['Vorname']; ?></li><br>
                 <li>email: <?php echo $user['email']; ?></li><br>
                 <li>Wohnort: <?php echo $user['Ort']; ?></li><br>
                 <li>Postleitzahl: <?php echo $user['PLZ']; ?></li><br>
