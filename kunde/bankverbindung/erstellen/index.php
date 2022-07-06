@@ -27,7 +27,7 @@
         $error = false;
 
         //Prüfen auf vollständige Eingabe
-        if(empty($blz) || empty($bic) || empty($kontoArt) || empty($KontoNr) || empty($iban)){
+        if(empty($bic) || empty($iban)){
             echo 'Bitte alle Felder ausfüllen<br>';
             $error = true;
         }
@@ -48,7 +48,7 @@
         //Konto hinterlegen
         if(!$error){
             $stmt = $con->prepare('INSERT INTO Bankverbindung (KId, BIC, IBAN, Aktiv)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?)');
+                                    VALUES (?, ?, ?, ?)');
             $result = $stmt->execute(array($_COOKIE['user'], $bic, $iban, false));
 
             if($result){

@@ -94,7 +94,7 @@
         $verkaufen = $stmt->fetchAll();
 
         //Check genügend orders <kaufen>
-        if(count($kaufen) < 5 && count($verkaufen) < 5){
+        if(count($kaufen) < 5 || count($verkaufen) < 5){
             echo 'weniger 5<br>';
             return false;
         }

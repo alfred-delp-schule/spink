@@ -38,7 +38,7 @@ ini_set('display_errors', 1);
         $bid = $_POST['bid'];
         $error = false;
 
-        if(empty($aid) || empty($wert) || empty($anzahl) || empty($bid)){
+        if(empty($aid) || empty($anzahl) || empty($bid)){
             $error = true;
             echo 'Bitte alle Felder ausfüllen<br>';
         }
