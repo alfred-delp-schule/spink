@@ -51,10 +51,6 @@
         <div class="container text-muted py-4 py-lg-5">
             <ul class="list-inline" style="font-family: ClashDisplay-Variable;">
                 <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="public">Marktplatz</a></li>
-                <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="kunde/signup">Sign up</a></li>
-                <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="kunde/login">Log in</a></li>
-                <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="unternehmen/signup">Provider Sign up</a></li>
-                <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="unternehmen/login">Provider Log in</a></li>
                 <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="mailto:info@spink-trade.de">Email uns</a></li>
                 <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="impressum">Impressum</a></li>
                 <li class="list-inline-item" style="margin-right: 8px;"><a class="link-secondary" href="datenschutzerklärung">Datenschutzerklärung</a></li>
@@ -63,6 +59,13 @@
         </div>
     </footer>
     <script src="styles/bootstrap/js/bootstrap.min.js"></script>
+
+    <?php if(isset($_SESSION['user'])){ ?>
+  <a class="link" href="logout.php" style="text-decoration:none">logout</a>
+<?php }else{ ?>
+  <a class="link" href="login.php" style="text-decoration:none">login</a>
+<?php } ?>
+
 </body>
 
 </html>

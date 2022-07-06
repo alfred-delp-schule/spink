@@ -1,4 +1,7 @@
 <?php
+//Errors anzeigen
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 
   include('functions.php');
@@ -18,9 +21,7 @@
   $con = getDBConnection();
   
 
-  //Errors anzeigen
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
+  
 
   
 ?>
@@ -54,6 +55,10 @@
     3: Id löschen<br>
     4: Tabelle ändern [4, Tabellenummer, ZuÄnderndeID, Spaltennamen, NeuerInhalt]<br>
     5: Bankverbindungen aktivieren<br>
+    6: Anteile tools [ Tabelle = 
+      1: Wertermittlung input id = aid
+      2: Transaktion input id = aid
+      ]
     <br>
 
     Tabelle:<br>
@@ -143,7 +148,7 @@
           $stmt = $con->query("SELECT * FROM Anteil");
           echo 'Anteile: Aid Pid Beschreibung Anzahl<br>';
           while($res = $stmt->fetch()){
-            echo $res['AId'].' | | '.$res['PId'].' | | '.$res['Beschreibung'].' | | '.$res['Anzahl'].'<br>';
+            echo $res['AId'].' | | '.$res['Beschreibung'].' | | '.$res['Anzahl'].'<br>';
           }
           echo '<br><br>';
         }
@@ -162,10 +167,10 @@
         //Auslesen Tabelle Orderbuch
         if($table == 5 || $table == 0){
           $stmt = $con->query("SELECT * FROM Orderbuch");
-          echo 'Orderbuch: Aid Uid Kid Anzahl Ask maxWert minWert Zeitpunkt<br>';
+          echo 'Orderbuch: Aid Kid Anzahl Ask Wert Zeitpunkt BId<br>';
           while($res = $stmt->fetch()){
-            echo $res['AId'].' | | '.$res['UId'].' | | '.$res['KId'].' | | '.$res['Anzahl'].' | | '.
-            $res['Ask'].' | | '.$res['maxWert'].' | | '.$res['minWert'].' | | '.$res['Zeitpunkt'].'<br>';
+            echo $res['AId'].' | | '.$res['KId'].' | | '.$res['Anzahl'].' | | '.
+            $res['Ask'].' | | '.$res['Wert'].' | | '.$res['Zeitpunkt'].' | | '.$res['BId'].'<br>';
           }
           echo '<br><br>';
         }
@@ -175,7 +180,7 @@
           $stmt = $con->query("SELECT * FROM Wert");
           echo 'Wert: Aid Pid Wert Zeitpunkt<br>';
           while($res = $stmt->fetch()){
-            echo $res['AId'].' | | '.$res['PId'].' | | '.$res['Wert'].' | | '.$res['Zeitpunkt'].'<br>';
+            echo $res['AId'].' | | '.$res['KId'].' | | '.$res['Wert'].' | | '.$res['Zeitpunkt'].'<br>';
           }
           echo '<br><br>';
         }
@@ -212,6 +217,42 @@
             ' | | '.$res['Aktiv'].'<br>';
           }
           echo '<br><br>';
+      }
+
+      //Anteile tools
+      if($mode == 6){
+        if($table == 1){
+          $wert = wertermittlung($input);
+          echo 'Der Wert ist '.$wert;
+
+          $stmt = $con->query("SELECT * FROM Wert");
+          echo '<br>Wert: Aid Pid Wert Zeitpunkt<br>';
+          while($res = $stmt->fetch()){
+            echo $res['AId'].' | | '.$res['KId'].' | | '.$res['Wert'].' | | '.$res['Zeitpunkt'].'<br>';
+          
+          echo '<br><br>';
+          }
+        }
+        if($table == 2){
+          transaktion($input);
+          echo 'Transaktion für '.$input.' wird durchgeführt';
+
+          $stmt = $con->query("SELECT * FROM AnteilsBesitz");
+          echo 'AnteilsBesitz: Aid Uid Kid KaufWert KaufZeitpunkt Anzahl<br>';
+          while($res = $stmt->fetch()){
+            echo $res['AId'].' | | '.$res['KId'].' | | '.$res['KaufWert'].' | | '.
+            $res['KaufZeitpunkt'].' | | '.$res['Anzahl'].'<br>';
+          }
+          echo '<br><br>';
+          $stmt = $con->query("SELECT * FROM Orderbuch");
+          echo 'Orderbuch: Aid Uid Kid Anzahl Ask maxWert minWert Zeitpunkt<br>';
+          while($res = $stmt->fetch()){
+            echo $res['AId'].' | | '.$res['KId'].' | | '.$res['Anzahl'].' | | '.
+            $res['Ask'].' | | '.$res['Wert'].' | | '.$res['Zeitpunkt'].' | | '.$res['BId'].'<br>';
+          }
+          echo '<br><br>';
+
+        }
       }
 
       //Weitere modi

@@ -1,6 +1,6 @@
 <?php
 
-    include('../tools/functions.php');
+    include('../../../tools/functions.php');
     checkAllPages();
 
     if(!checkLogin()){

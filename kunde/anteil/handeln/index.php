@@ -44,10 +44,10 @@ ini_set('display_errors', 1);
         }
 
         if(!$error){
-            $stmt = $con->prepare('INSERT INTO Orderbuch (KId, Ask, Wert, Anzahl, BId)
-                                        VALUES(?, ?, ?, ?, ?)');
+            $stmt = $con->prepare('INSERT INTO Orderbuch (AId, KId, Ask, Wert, Anzahl, BId)
+                                        VALUES(?, ?, ?, ?, ?, ?)');
             if($ask){
-                $result = $stmt->execute(array($_COOKIE['user'], $ask, $wert, $anzahl, $bid));
+                $result = $stmt->execute(array($aid, $_COOKIE['user'], $ask, $wert, $anzahl, $bid));
             } else {
                 $check = $con->prepare('SELECT Anzahl from AnteilsBesitz WHERE AId = ? AND KId = ?');
                 $res = $check->execute(array($aid, $_COOKIE['user']));
@@ -60,7 +60,7 @@ ini_set('display_errors', 1);
 
 
                 if($besitz >= $anzahl){
-                    $result = $stmt->execute(array($_COOKIE['user'], $ask, $wert, $anzahl, $bid));
+                    $result = $stmt->execute(array($aid, $_COOKIE['user'], $ask, $wert, $anzahl, $bid));
                 } else {
                     $result = false;
                 }
@@ -68,11 +68,10 @@ ini_set('display_errors', 1);
             }
 
             if($result){
-                include('../../../tools/wertermittlung.php');
                 $aktienWert = wertermittlung($aid);
                 echo $aktienWert;
                 if($aktienWert != false){
-                    $stmt = $con->prepare('INSERT INTO Wert (AId Wert) VALUES (?, ?)');
+                    $stmt = $con->prepare('INSERT INTO Wert (AId, Wert) VALUES (?, ?)');
                     $res = $stmt->execute(array($aid, $aktienWert));
                     echo $res;
                     
