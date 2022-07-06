@@ -58,10 +58,10 @@
         if(!$error){
             $pwhash = password_hash($passwort, PASSWORD_ARGON2I);
 
-            $stmt = $con->prepare('INSERT INTO kunde (email, passwort, Ort, PLZ, Straße, HNr, Name)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $con->prepare('INSERT INTO kunde (email, passwort, Ort, PLZ, Straße, HNr, Name, Vorname)
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 
-            $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name));
+            $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name, $vname));
 
             if($result){
                 header('Location: ../login');
@@ -98,6 +98,9 @@
 
             Name:<br>
             <input type="text" size="40" maxlength="50" name="name"><br><br>
+
+            Vorname:<br>
+            <input type="text" size="40" maxlength="50" name="vname"><br><br>
 
             Wohnort:<br>
             <input type="text" size="40" maxlength="50" name="ort"><br><br>

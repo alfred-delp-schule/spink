@@ -32,6 +32,7 @@
 
             <ul>
                 <li>Name: <?php echo $user['Name']; ?></li><br>
+                <li>Vorame: <?php echo $user['Vorname']; ?></li><br>
                 <li>email: <?php echo $user['email']; ?></li><br>
                 <li>Wohnort: <?php echo $user['Ort']; ?></li><br>
                 <li>Postleitzahl: <?php echo $user['PLZ']; ?></li><br>
@@ -45,7 +46,7 @@
                 Nützliche Links
             </h2>
 
-            <a href='anteil/kaufen'>Anteil kaufen</a><br>
+            <a href='anteil/handeln'>Anteil kaufen</a><br>
             <a href='bankverbindung/erstellen'>Bankverbindung hinterlegen</a><br>
             <a href='logout'>ausloggen</a><br>
             <a href='../public'>Marktplatz</a><br>

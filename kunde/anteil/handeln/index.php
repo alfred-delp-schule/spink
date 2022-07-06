@@ -1,6 +1,9 @@
 <?php
 
-    include('../tools/functions.php');
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+    include('../../../tools/functions.php');
     checkAllPages();
 
     if(!checkLogin()){
@@ -18,7 +21,7 @@
     $stmt = $con->prepare('SELECT * from Bankverbindung WHERE KId = ?');
     $result = $stmt->execute(array($_COOKIE['user']));
     if($stmt->fetch() == false){
-        header('Location: https://spink-trade.de/kunde/bankverbindung/erstellen');
+        header('Location: ../../bankverbindung/erstellen');
         exit();
         echo 'Die Bankverbindung wurde erfolgreich hinterlegt.';
         $showForm = false;
@@ -35,7 +38,7 @@
         $bid = $_POST['bid'];
         $error = false;
 
-        if(empty($ais) || empty($ask) || empty($wert) || empty($anzahl)){
+        if(empty($aid) || empty($wert) || empty($anzahl) || empty($bid)){
             $error = true;
             echo 'Bitte alle Felder ausfüllen<br>';
         }
@@ -67,9 +70,11 @@
             if($result){
                 include('../../../tools/wertermittlung.php');
                 $aktienWert = wertermittlung($aid);
+                echo $aktienWert;
                 if($aktienWert != false){
                     $stmt = $con->prepare('INSERT INTO Wert (AId Wert) VALUES (?, ?)');
                     $res = $stmt->execute(array($aid, $aktienWert));
+                    echo $res;
                     
                     transaktion($aid);
                 }
