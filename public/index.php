@@ -28,7 +28,13 @@
     <link rel="stylesheet" href="../../styles/css/styles.css">     
     </head> 
     <body style="background: rgb(255,246,232); padding-top: 10rem;">
-        <?php include('../view/header.php'); ?>
+    <?php
+		if(checkLoginhtml()){
+			include('../view/header_log.php');
+		} else {
+			include('../view/header.php');
+		}
+	?>
         <h1 class="text-center">Marktplatz</h1>
         <h2 class="p-5">Liste von Aktien</h2>
         <table border="1" class="table">
