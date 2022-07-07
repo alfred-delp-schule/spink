@@ -1,19 +1,13 @@
 <nav style="background: rgb(255,246,232);" class="navbar navbar-light navbar-expand-md py-3 fixed-top">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="font-family: ClashDisplay-Variable;font-weight: bold;margin-right: 45px;"><img class="user-select-none" src="img/logo_spink.png" width="90px"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="font-family: ClashDisplay-Variable;font-weight: bold;margin-right: 45px;"><img class="user-select-none" src="/img/logo_spink.png" width="90px"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link active" href="#" style="font-family: ClashDisplay-Variable;">HOME</a></li>
-                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="public" style="font-family: ClashDisplay-Variable;">MARKTPLATZ</a></li>
-                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="faq" style="font-family: ClashDisplay-Variable;">FAQ</a></li>
+                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="/public" style="font-family: ClashDisplay-Variable;">MARKTPLATZ</a></li>
+                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="/faq" style="font-family: ClashDisplay-Variable;">FAQ</a></li>
                 </ul>
                 <a class="btn btn-primary py-3 px-4 mx-4" href="/kunde/login" style="font-family: ClashDisplay-Variable; background-color: rgb(239, 240, 236); border-color: rgba(0, 0, 0, 0); color: black; border-radius: 10px;">LOG IN</a>
                 <a class="btn btn-primary py-3 px-4 rounded-pill" href="/kunde/signup" style="font-family: ClashDisplay-Variable; background-color: rgb(30, 35, 48); border-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255);">SIGN UP</a>
-                <a id="logout_button" class="btn btn-primary py-3 px-4 rounded-pill" href="/kunde/signup" style="display: none; font-family: ClashDisplay-Variable; background-color: rgb(30, 35, 48); border-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255);">LOG OUT</a>
             </div>
         </div>
 </nav>
-
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-<script>
-    console.log(Cookies.get('logged_in'));
-</script>

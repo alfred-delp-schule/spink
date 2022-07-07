@@ -82,54 +82,79 @@
 <!DOCTYPE html> 
 <html> 
     <head>
-        <title>Registrierung</title>    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SPINK - Sign Up</title>
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../img/favicon_frame3.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon_frame1.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon_frame2.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="../../img/favicon_frame3.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../img/favicon_frame4.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../../img/favicon_frame5.png">
+    <link rel="stylesheet" href="../../styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../styles/css/ClashDisplay-Variable.css">
+    <link rel="stylesheet" href="../../styles/css/Navbar-With-Button.css">
+    <link rel="stylesheet" href="../../styles/css/styles.css"> 
     </head> 
-    <body>
-
-        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-            E-Mail:<br>
-            <input type="email" size="40" maxlength="250" name="email"><br><br>
-            
-            Dein Passwort:<br>
-            <input type="password" size="40"  maxlength="250" name="passwort"><br>
-            
-            Passwort wiederholen:<br>
-            <input type="password" size="40" maxlength="250" name="passwort2"><br><br>
-
-            Name:<br>
-            <input type="text" size="40" maxlength="50" name="name"><br><br>
-
-            Vorname:<br>
-            <input type="text" size="40" maxlength="50" name="vname"><br><br>
-
-            Wohnort:<br>
-            <input type="text" size="40" maxlength="50" name="ort"><br><br>
-
-            PLZ:<br>
-            <input type="number" size="40" maxlength="11" name="plz"><br><br>
-
-            Straße:<br>
-            <input type="text" size="40" maxlength="250" name="str"><br><br>
-
-            Hausnummer:<br>
-            <input type="number" size="40" maxlength="4" name="hnr"><br><br>
-            
-            <input type="submit" value="Abschicken">
-        </form>
-
-
-        <p>
-            Zum <a href="../login"> Login </a><br>
-            Zur <a href="../../"> Startseite </a><br>
-
-        </p>
-
-
+    <body style="background: rgb(255,246,232); margin-top: 3em;">
+    <section>
+      <a href="https://spink-trade.de"><img class="user-select-none mx-auto d-block" src="../../img/logo_spink.png" width="120px"></a>
+        <h1 class="text-center pb-5">Sign Up</h1>
+        <div class="row mb-3">
+          <div class="col-lg-4 themed-grid-col"></div>
+          <div class="col-lg-4 themed-grid-col">
+            <div style="background-color: #fdfdfd;" class="rounded-3">
+              <form class="p-4"  method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+                  <div class="mb-3">
+                    <label for="InputEmail1" class="form-label">Email Adresse</label>
+                    <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" name="email">
+                  </div>
+                  <div class="mb-3">
+                    <label for="InputPassword1" class="form-label">Passwort</label>
+                    <input type="password" class="form-control" id="InputPassword1" name="passwort">
+                  </div>
+                  <div class="mb-3">
+                    <label for="InputPassword2" class="form-label">Passwort wiederholen</label>
+                    <input type="password" class="form-control" id="InputPassword2" name="passwort2">
+                  </div>
+                  <div class="mb-3">
+                    <label for="text2" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="InputText5" aria-describedby="text2" name="name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="text2" class="form-label">Vorname</label>
+                    <input type="text" class="form-control" id="InputText2" aria-describedby="text2" name="vname">
+                  </div>
+                  <div class="mb-3">
+                    <label for="text3" class="form-label">Wohnort</label>
+                    <input type="text" class="form-control" id="InputText3" aria-describedby="text3" name="ort">
+                  </div>
+                  <div class="mb-3">
+                    <label for="number1" class="form-label">PLZ</label>
+                    <input type="number" class="form-control" id="InputNumber1" aria-describedby="number1" name="plz">
+                  </div>
+                  <div class="mb-3">
+                    <label for="text4" class="form-label">Straße</label>
+                    <input type="text" class="form-control" id="InputText4" aria-describedby="text4" name="str">
+                  </div>
+                  <div class="mb-3">
+                    <label for="number2" class="form-label">Hausnummer</label>
+                    <input type="number" class="form-control" id="InputNumber2" aria-describedby="number2" name="hnr">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Sign Up</button>
+                  <div class="form-text mt-4">Du hast bereits einen Account? <a href="/kunde/login">Log In</a></div>
+                </form>
+          </div>
+          <div class="col-lg-4 themed-grid-col"></div>
+        </div>
+        
+        </div>
+    </section>
         <?php
             }
 
 
         ?>
+        <?php include('../../view/footer.php'); ?>
 
     </body>
 </html>
