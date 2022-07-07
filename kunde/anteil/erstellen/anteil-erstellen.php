@@ -35,16 +35,38 @@ try {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Anteil erstellen</title> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SPINK - Anteil erstellen</title>
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../../img/favicon_frame3.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon_frame1.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../img/favicon_frame2.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="../../../img/favicon_frame3.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../img/favicon_frame4.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../../../img/favicon_frame5.png">
+    <link rel="stylesheet" href="../../../styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../styles/css/ClashDisplay-Variable.css">
+    <link rel="stylesheet" href="../../../styles/css/Navbar-With-Button.css">
+    <link rel="stylesheet" href="../../../styles/css/styles.css">
 </head>
-    <h2>Hier kann man einen Anteil erstellen</h2>
+<body style="background: rgb(255,246,232); padding-top: 10rem;">
+    <?php
+            if(checkLoginhtml()){
+                include('../../../view/header_log.php');
+            } else {
+                include('../../../view/header.php');
+            }
+        ?>
+
+<div class="row mb-3">
+          <div class="col-lg-4 themed-grid-col"></div>
+          <div class="col-lg-4 themed-grid-col">
+            <h1 class="text-center mb-4">Anteil erstellen</h1>
+            
     <h4>Change 14</h4>
 
     <!--Hier wird ein Form erstellt -->
 
     <section>
-      <h4>Neuen Anteil erstellen</h4>
       <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post"></form>
         <label>AId:</label>
           <br><input type="int" name="AId"></br>
@@ -57,6 +79,11 @@ try {
         </div>
       </form>
     </section>
+          </div>
+          <div class="col-lg-4 themed-grid-col"></div>
+    </div>
+    <?php include('../../../view/footer.php'); ?>
+    <script src="../../../styles/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 

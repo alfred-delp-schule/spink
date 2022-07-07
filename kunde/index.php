@@ -53,7 +53,7 @@
           <div class="col-lg-4 themed-grid-col"></div>
           <div class="col-lg-4 themed-grid-col">
           <div class="p-3">
-            <h1>
+            <h1 class="text-center mb-5">
                 Konto
             </h1>
 
@@ -75,7 +75,6 @@
 
             <a href='anteil/handeln'>Anteil kaufen</a><br>
             <a href='bankverbindung/erstellen/'>Bankverbindung hinterlegen</a><br>
-            <a href='logout'>ausloggen</a><br>
             <a href='../public'>Marktplatz</a><br>
         </div>
 
