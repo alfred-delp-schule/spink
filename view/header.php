@@ -1,8 +1,8 @@
 <nav style="background: rgb(255,246,232);" class="navbar navbar-light navbar-expand-md py-3 fixed-top">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="font-family: ClashDisplay-Variable;font-weight: bold;margin-right: 45px;"><img class="user-select-none" src="/img/logo_spink.png" width="90px"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="https://spink-trade.de" style="font-family: ClashDisplay-Variable;font-weight: bold;margin-right: 45px;"><img class="user-select-none" src="/img/logo_spink.png" width="90px"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#" style="font-family: ClashDisplay-Variable;">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="https://spink-trade.de" style="font-family: ClashDisplay-Variable;">HOME</a></li>
                     <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="/public" style="font-family: ClashDisplay-Variable;">MARKTPLATZ</a></li>
                     <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="/faq" style="font-family: ClashDisplay-Variable;">FAQ</a></li>
                 </ul>

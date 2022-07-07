@@ -5,12 +5,6 @@
 	
     //Datenbankverbindung erstellen
     $con = getDBConnection();
-
-    if(checkLoginhtml()){
-		$user = getUser($_COOKIE['user'], $con);
-		echo 'Hallo '.$user['Name'];
-    }
-
 ?>
 <!DOCTYPE html> 
 <html> 
