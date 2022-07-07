@@ -59,13 +59,6 @@
         </div>
     </footer>
     <script src="styles/bootstrap/js/bootstrap.min.js"></script>
-
-    <?php if(isset($_SESSION['user'])){ ?>
-  <a class="link" href="logout.php" style="text-decoration:none">logout</a>
-<?php }else{ ?>
-  <a class="link" href="login.php" style="text-decoration:none">login</a>
-<?php } ?>
-
 </body>
 
 </html>
