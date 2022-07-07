@@ -1,10 +1,8 @@
 <?php
-
-    include('../tools/functions.php');
-    checkAllPages();
-	
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
+include ('../tools/functions.php');
+checkAllPages();
+//Datenbankverbindung erstellen
+$con = getDBConnection();
 ?>
 
 <!DOCTYPE html>
@@ -28,12 +26,12 @@
 
 <body style="background: rgb(255,246,232); padding-top: 10rem;">
     <?php
-            if(checkLoginhtml()){
-                include('../view/header_log.php');
-            } else {
-                include('../view/header.php');
-            }
-        ?>
+if (checkLoginhtml()) {
+    include ('../view/header_log.php');
+} else {
+    include ('../view/header.php');
+}
+?>
     <h1 class="text-center mb-4">Impressum</h1>
     <div class="row mb-3">
           <div class="col-lg-4 themed-grid-col"></div>
@@ -43,7 +41,7 @@
           <div class="col-lg-4 themed-grid-col"></div>
     </div>
 
-    <?php include('../view/footer.php'); ?>
+    <?php include ('../view/footer.php'); ?>
     <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
 </body>
 

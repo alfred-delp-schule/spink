@@ -1,10 +1,8 @@
 <?php
-
-    include('../tools/functions.php');
-    checkAllPages();
-	
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
+include ('../tools/functions.php');
+checkAllPages();
+//Datenbankverbindung erstellen
+$con = getDBConnection();
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +27,12 @@
 <body lang=DE link=blue vlink="#954F72" style="background: rgb(255,246,232); padding-top: 10rem;">
 
 <?php
-            if(checkLoginhtml()){
-                include('../view/header_log.php');
-            } else {
-                include('../view/header.php');
-            }
-        ?>
+if (checkLoginhtml()) {
+    include ('../view/header_log.php');
+} else {
+    include ('../view/header.php');
+}
+?>
 
 <h1 class="text-center mb-4">Datenschutzerklärung</h1>
 

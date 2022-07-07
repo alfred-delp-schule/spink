@@ -1,8 +1,5 @@
 <?php
-
-    include('../../tools/functions.php');
-    checkAllPages();
-
-    logout();
-
+include ('../../tools/functions.php');
+checkAllPages();
+logout();
 ?>

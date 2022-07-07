@@ -1,26 +1,19 @@
 <?php
-
-    include('../tools/functions.php');
-    checkAllPages();
-
-    //Noch nicht Angemeldet
-    if(!checkLogin()){
-        header('Location: login');
-        exit();
-    }
-
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
-
-    //Logik
-
+include ('../tools/functions.php');
+checkAllPages();
+//Noch nicht Angemeldet
+if (!checkLogin()) {
+    header('Location: login');
+    exit();
+}
+//Datenbankverbindung erstellen
+$con = getDBConnection();
+//Logik
+$user = getUser($_COOKIE['user'], $con);
+if (checkLoginhtml()) {
     $user = getUser($_COOKIE['user'], $con);
-
-
-    if(checkLoginhtml()){
-		$user = getUser($_COOKIE['user'], $con);
-		echo '<p class="px-5 fs-1 text-center">Hallo '.$user['Vorname'].'!</p>';
-    }   
+    echo '<p class="px-5 fs-1 text-center">Hallo ' . $user['Vorname'] . '!</p>';
+}
 ?>
 
 
@@ -42,12 +35,12 @@
     <body style="background: rgb(255,246,232); padding-top: 10rem;">
 
     <?php
-		if(checkLoginhtml()){
-			include('../view/header_log.php');
-		} else {
-			include('../view/header.php');
-		}
-	?>
+if (checkLoginhtml()) {
+    include ('../view/header_log.php');
+} else {
+    include ('../view/header.php');
+}
+?>
 
 <div class="row mb-3">
           <div class="col-lg-4 themed-grid-col"></div>
@@ -85,51 +78,52 @@
             </h2>
             <ul>    
                 <?php
-                    $stmt = $con->prepare('SELECT * from Bankverbindung WHERE KId = ?');
-                    $result = $stmt->execute(array($_COOKIE['user']));
-                    $index = 1;
-                    while($res = $stmt->fetch()){
-                        echo '<li>'.$index.' | | '.$res['BIC'].' | | '.$res['IBAN'].' | | ';
-                        if($res['Aktiv']){
-                            echo 'Aktiv</li>';
-                        } else {
-                            echo 'Inaktiv</li>';
-                        }
-                        $index++;
-                    }
-                ?>
+$stmt = $con->prepare('SELECT * from Bankverbindung WHERE KId = ?');
+$result = $stmt->execute(array($_COOKIE['user']));
+$index = 1;
+while ($res = $stmt->fetch()) {
+    echo '<li>' . $index . ' | | ' . $res['BIC'] . ' | | ' . $res['IBAN'] . ' | | ';
+    if ($res['Aktiv']) {
+        echo 'Aktiv</li>';
+    } else {
+        echo 'Inaktiv</li>';
+    }
+    $index++;
+}
+?>
             </ul>
         </div>
 
         <?php
-            $stmt = $con->prepare('SELECT * from AnteilsBesitz WHERE KId = ? order by AId ASC');
-            $result = $stmt->execute(array($_COOKIE['user']));
-            $anteile = $stmt->fetchAll();
-            //if($anteile){
-        ?>
+$stmt = $con->prepare('SELECT * from AnteilsBesitz WHERE KId = ? order by AId ASC');
+$result = $stmt->execute(array($_COOKIE['user']));
+$anteile = $stmt->fetchAll();
+//if($anteile){
+
+?>
         <div class="p-5">
             <h2>
                 Portfolio
             </h2>
             <table class="table" border="1">
                 <?php
-                echo '<tr><th scope="col">AnteilNr</th><th scope="col">Anzahl</th><th scope="col">Momentaner Wert</th></tr>';
-                foreach($anteile as $anteil){
-                    $stmt = $con->prepare('SELECT Wert from Wert WHERE AId = ? order by Zeitpunkt DESC');
-                    $res = $stmt->execute(array($anteil['AId']));
-                    $wert = $stmt->fetch()['Wert'];
-                    echo '<tr>';
-                    echo '<th scope="row">'.$anteil['AId'].'</td>';
-                    echo '<td>'.$anteil['Anzahl'].'</td>';
-                    echo '<td>';
-                    if($wert){
-                        echo $wert.'</td>';
-                    } else {
-                        echo 'Nicht Verfügbar</td>';
-                    }
-                    echo '</tr>';
-                }
-                ?>
+echo '<tr><th scope="col">AnteilNr</th><th scope="col">Anzahl</th><th scope="col">Momentaner Wert</th></tr>';
+foreach ($anteile as $anteil) {
+    $stmt = $con->prepare('SELECT Wert from Wert WHERE AId = ? order by Zeitpunkt DESC');
+    $res = $stmt->execute(array($anteil['AId']));
+    $wert = $stmt->fetch() ['Wert'];
+    echo '<tr>';
+    echo '<th scope="row">' . $anteil['AId'] . '</td>';
+    echo '<td>' . $anteil['Anzahl'] . '</td>';
+    echo '<td>';
+    if ($wert) {
+        echo $wert . '</td>';
+    } else {
+        echo 'Nicht Verfügbar</td>';
+    }
+    echo '</tr>';
+}
+?>
             </table>
         </div>
           </div>
@@ -138,9 +132,10 @@
         
 
         <?php
-            //}
-        ?>
+//}
+
+?>
         
-        <?php include('../view/footer.php'); ?>
+        <?php include ('../view/footer.php'); ?>
     </body>
 </html>

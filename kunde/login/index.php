@@ -1,47 +1,34 @@
 <?php
-
-
-    include('../../tools/functions.php');
-    checkAllPages();
-
-    $showForm = true;
-
-    //Bereits Angemeldet
-    if(checkLogin()){
+include ('../../tools/functions.php');
+checkAllPages();
+$showForm = true;
+//Bereits Angemeldet
+if (checkLogin()) {
+    header('Location: ../');
+    exit();
+}
+//Datenbankverbindung erstellen
+$con = getDBConnection();
+//Anmeldeformular Verarbeitung
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $passwort = $_POST['passwort'];
+    //Anmelden
+    $stmt = $con->prepare('SELECT * FROM kunde WHERE email = ?');
+    $result = $stmt->execute(array($email));
+    $user = $stmt->fetch();
+    if (password_verify($passwort, $user['passwort'])) {
+        setLogin($user['KId']);
         header('Location: ../');
         exit();
-    }
-
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
-
-    //Anmeldeformular Verarbeitung
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        $email = $_POST['email'];
-        $passwort = $_POST['passwort'];
-
-        //Anmelden
-        $stmt = $con->prepare('SELECT * FROM kunde WHERE email = ?');
-        $result = $stmt->execute(array($email));
-        $user = $stmt->fetch();
-
-        if(password_verify($passwort, $user['passwort'])){
-            setLogin($user['KId']);
-            header('Location: ../');
-            exit();
-            echo 'Die Anmeldung war Erfolgreich.<br>
+        echo 'Die Anmeldung war Erfolgreich.<br>
                         Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
-            $showForm = false;
-        }else {
-            echo 'Passwort und oder Email sind Falsch<br>';
-        }
-
-    
+        $showForm = false;
+    } else {
+        echo 'Passwort und oder Email sind Falsch<br>';
     }
-
-
-    if($showForm){
+}
+if ($showForm) {
 ?>
 
 <!DOCTYPE html> 
@@ -70,7 +57,7 @@
           <div class="col-lg-4 themed-grid-col"></div>
           <div class="col-lg-4 themed-grid-col">
             <div style="background-color: #fdfdfd;" class="rounded-3">
-              <form class="p-4" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+              <form class="p-4" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email Adresse</label>
                     <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -89,7 +76,7 @@
         </div>
     </section>
 
-<!-- <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+<!-- <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 E-Mail:<br>
 <input type="email" size="40" maxlength="250" name="email"><br><br>
  
@@ -108,11 +95,10 @@ Zur <a href="../../"> Startseite </a>
 
 
 <?php
-    }
-
+}
 ?>
 
-<?php include('../../view/footer.php'); ?>
+<?php include ('../../view/footer.php'); ?>
 
 </body>
 </html>

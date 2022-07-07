@@ -1,82 +1,62 @@
 <?php
-
-    include('../../tools/functions.php');
-    checkAllPages();
-
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
-
-
-    //Variablen
-    $showForm = true;
-
-
-    //Logik
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        $email = $_POST['email'];
-        $passwort = $_POST['passwort'];
-        $passwort2 = $_POST['passwort2'];
-        $name = $_POST['name'];
-        $vname = $_POST['vname'];
-        $ort = $_POST['ort'];
-        $plz = $_POST['plz'];
-        $str = $_POST['str'];
-        $hnr = $_POST['hnr'];
-
-        $error = false;
-
-        //Prüfen auf vollständige Eingabe
-        if(empty($email) || empty($passwort) || empty($name) ||
-            empty($vname) || empty($ort) || empty($plz) || empty($str) || empty($hnr)){
-                echo 'Bitte alle Felder ausfüllen<br>';
-                $error = true;
-        }
-
-        //Prüfen ob email bereits registriert
-        if(!$error){
-            $stmt = $con->prepare('SELECT * FROM kunde WHERE email = ?');
-            $result = $stmt->execute(array($email));
-            $user = $stmt->fetch();
-
-            if($user !== false){
-                echo 'Diese Email ist bereits vergeben<br>';
-                $error = true;
-            }
-        }
-
-        //Prüfen ob Passwort korrekt wiederholt
-        if(!$error){
-            if($passwort != $passwort2){
-                echo 'Passwörter stimmen nicht überein<br>';
-                $error = true;
-            }
-        }
-
-        //Kein Fehler => Registrieren
-        if(!$error){
-            $pwhash = password_hash($passwort, PASSWORD_ARGON2I);
-
-            $stmt = $con->prepare('INSERT INTO kunde (email, passwort, Ort, PLZ, Straße, HNr, Name, Vorname)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-
-            $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name, $vname));
-
-            if($result){
-                header('Location: ../login');
-                exit();
-                echo 'Die Registrierung war Erfolgreich.<br>
-                        Weiter zum <a href="login.php"> Login </a>';
-                $showForm = false;
-            } else {
-                echo 'Es ist ein Fehler aufgetreten<br>';
-            }
+include ('../../tools/functions.php');
+checkAllPages();
+//Datenbankverbindung erstellen
+$con = getDBConnection();
+//Variablen
+$showForm = true;
+//Logik
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $passwort = $_POST['passwort'];
+    $passwort2 = $_POST['passwort2'];
+    $name = $_POST['name'];
+    $vname = $_POST['vname'];
+    $ort = $_POST['ort'];
+    $plz = $_POST['plz'];
+    $str = $_POST['str'];
+    $hnr = $_POST['hnr'];
+    $error = false;
+    //Prüfen auf vollständige Eingabe
+    if (empty($email) || empty($passwort) || empty($name) || empty($vname) || empty($ort) || empty($plz) || empty($str) || empty($hnr)) {
+        echo 'Bitte alle Felder ausfüllen<br>';
+        $error = true;
+    }
+    //Prüfen ob email bereits registriert
+    if (!$error) {
+        $stmt = $con->prepare('SELECT * FROM kunde WHERE email = ?');
+        $result = $stmt->execute(array($email));
+        $user = $stmt->fetch();
+        if ($user !== false) {
+            echo 'Diese Email ist bereits vergeben<br>';
+            $error = true;
         }
     }
-
-
-    if($showForm){
+    //Prüfen ob Passwort korrekt wiederholt
+    if (!$error) {
+        if ($passwort != $passwort2) {
+            echo 'Passwörter stimmen nicht überein<br>';
+            $error = true;
+        }
+    }
+    //Kein Fehler => Registrieren
+    if (!$error) {
+        $pwhash = password_hash($passwort, PASSWORD_ARGON2I);
+        $stmt = $con->prepare('INSERT INTO kunde (email, passwort, Ort, PLZ, Straße, HNr, Name, Vorname)
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name, $vname));
+        if ($result) {
+            header('Location: ../login');
+            exit();
+            echo 'Die Registrierung war Erfolgreich.<br>
+                        Weiter zum <a href="login.php"> Login </a>';
+            $showForm = false;
+        } else {
+            echo 'Es ist ein Fehler aufgetreten<br>';
+        }
+    }
+}
+if ($showForm) {
 ?>
 
 <!DOCTYPE html> 
@@ -103,7 +83,7 @@
           <div class="col-lg-4 themed-grid-col"></div>
           <div class="col-lg-4 themed-grid-col">
             <div style="background-color: #fdfdfd;" class="rounded-3">
-              <form class="p-4"  method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+              <form class="p-4"  method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                   <div class="mb-3">
                     <label for="InputEmail1" class="form-label">Email Adresse</label>
                     <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" name="email">
@@ -150,11 +130,9 @@
         </div>
     </section>
         <?php
-            }
-
-
-        ?>
-        <?php include('../../view/footer.php'); ?>
+}
+?>
+        <?php include ('../../view/footer.php'); ?>
 
     </body>
 </html>

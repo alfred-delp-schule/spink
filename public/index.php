@@ -1,10 +1,8 @@
 <?php
-
-    include('../tools/functions.php');
-    checkAllPages();
-	
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
+include ('../tools/functions.php');
+checkAllPages();
+//Datenbankverbindung erstellen
+$con = getDBConnection();
 ?>
 <!DOCTYPE html> 
 <html> 
@@ -24,37 +22,36 @@
     </head> 
     <body style="background: rgb(255,246,232); padding-top: 10rem;">
     <?php
-		if(checkLoginhtml()){
-			include('../view/header_log.php');
-		} else {
-			include('../view/header.php');
-		}
-	?>
+if (checkLoginhtml()) {
+    include ('../view/header_log.php');
+} else {
+    include ('../view/header.php');
+}
+?>
         <h1 class="text-center">Marktplatz</h1>
         <h2 class="p-5">Liste von Aktien</h2>
         <table border="1" class="table">
             <?php
-                //Liste aller Anteile in einer Tabelle
-                $stmt = $con->query('SELECT * from Anteil');
-                $anteile = $stmt->fetchAll();
-                echo '<tr><th scope="col">AnteilNr</th><th scope="col">Beschreibung</th><th scope="col">Momentaner Wert</th></tr>';
-                foreach($anteile as $anteil){
-                    $stmt = $con->prepare('SELECT Wert from Wert WHERE AId = ? order by Zeitpunkt DESC');
-                    $res = $stmt->execute(array($anteil['AId']));
-                    $wert = $stmt->fetch()['Wert'];
-                    echo '<tr>';
-                    echo '<th scope="row">'.$anteil['AId'].'</th>';
-                    echo '<td>'.$anteil['Beschreibung'].'</td>';
-                    echo '<td>';
-                    if($wert){
-                        echo $wert.'</td>';
-                    } else {
-                        echo 'Nicht Verfügbar</td>';
-                    }
-                    echo '</tr>';
-                }
-
-            ?>
+//Liste aller Anteile in einer Tabelle
+$stmt = $con->query('SELECT * from Anteil');
+$anteile = $stmt->fetchAll();
+echo '<tr><th scope="col">AnteilNr</th><th scope="col">Beschreibung</th><th scope="col">Momentaner Wert</th></tr>';
+foreach ($anteile as $anteil) {
+    $stmt = $con->prepare('SELECT Wert from Wert WHERE AId = ? order by Zeitpunkt DESC');
+    $res = $stmt->execute(array($anteil['AId']));
+    $wert = $stmt->fetch() ['Wert'];
+    echo '<tr>';
+    echo '<th scope="row">' . $anteil['AId'] . '</th>';
+    echo '<td>' . $anteil['Beschreibung'] . '</td>';
+    echo '<td>';
+    if ($wert) {
+        echo $wert . '</td>';
+    } else {
+        echo 'Nicht Verfügbar</td>';
+    }
+    echo '</tr>';
+}
+?>
         </table>
 
        <!--  <p>
@@ -62,6 +59,6 @@
             <a href="../">start</a><br>
         </p> -->
 
-        <?php include('../view/footer.php'); ?>
+        <?php include ('../view/footer.php'); ?>
     </body>
 </html>

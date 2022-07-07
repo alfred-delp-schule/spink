@@ -8,9 +8,9 @@
             </ul>
             <p class="mb-0" style="font-family: ClashDisplay-Variable;">Copyright ©
             <?php #echo current year
-                $year = date('Y');
-                echo $year;
-             ?>
+$year = date('Y');
+echo $year;
+?>
               SPINK</p>
         </div>
     </footer>

@@ -1,97 +1,73 @@
 <?php
-
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-    include('../../../tools/functions.php');
-    checkAllPages();
-
-    if(!checkLogin()){
-        header('Location: ../../login');
-        exit();
+include ('../../../tools/functions.php');
+checkAllPages();
+if (!checkLogin()) {
+    header('Location: ../../login');
+    exit();
+}
+//Datenbankverbindung erstellen
+$con = getDBConnection();
+$showForm = true;
+//Checken ob Bankverbindungen vorhanden sind
+$stmt = $con->prepare('SELECT * from Bankverbindung WHERE KId = ?');
+$result = $stmt->execute(array($_COOKIE['user']));
+if ($stmt->fetch() == false) {
+    header('Location: ../../bankverbindung/erstellen');
+    exit();
+    echo 'Die Bankverbindung wurde erfolgreich hinterlegt.';
+    $showForm = false;
+}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $aid = $_POST['aid'];
+    $ask = $_POST['ask'];
+    $wert = $_POST['wert'];
+    $anzahl = $_POST['anzahl'];
+    $bid = $_POST['bid'];
+    $error = false;
+    if (empty($aid) || empty($anzahl) || empty($bid)) {
+        $error = true;
+        echo 'Bitte alle Felder ausfüllen<br>';
     }
-
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
-
-
-    $showForm = true;
-
-    //Checken ob Bankverbindungen vorhanden sind
-    $stmt = $con->prepare('SELECT * from Bankverbindung WHERE KId = ?');
-    $result = $stmt->execute(array($_COOKIE['user']));
-    if($stmt->fetch() == false){
-        header('Location: ../../bankverbindung/erstellen');
-        exit();
-        echo 'Die Bankverbindung wurde erfolgreich hinterlegt.';
-        $showForm = false;
-    }
-
-
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        $aid = $_POST['aid'];
-        $ask = $_POST['ask'];
-        $wert = $_POST['wert'];
-        $anzahl = $_POST['anzahl'];
-        $bid = $_POST['bid'];
-        $error = false;
-
-        if(empty($aid) || empty($anzahl) || empty($bid)){
-            $error = true;
-            echo 'Bitte alle Felder ausfüllen<br>';
-        }
-
-        if(!$error){
-            $stmt = $con->prepare('INSERT INTO Orderbuch (AId, KId, Ask, Wert, Anzahl, BId)
+    if (!$error) {
+        $stmt = $con->prepare('INSERT INTO Orderbuch (AId, KId, Ask, Wert, Anzahl, BId)
                                         VALUES(?, ?, ?, ?, ?, ?)');
-            if($ask){
+        if ($ask) {
+            $result = $stmt->execute(array($aid, $_COOKIE['user'], $ask, $wert, $anzahl, $bid));
+        } else {
+            $check = $con->prepare('SELECT Anzahl from AnteilsBesitz WHERE AId = ? AND KId = ?');
+            $res = $check->execute(array($aid, $_COOKIE['user']));
+            $aktien = $check->fetchAll();
+            $besitz = 0;
+            foreach ($aktien as $aktie) {
+                $besitz+= $aktie['Anzahl'];
+            }
+            if ($besitz >= $anzahl) {
                 $result = $stmt->execute(array($aid, $_COOKIE['user'], $ask, $wert, $anzahl, $bid));
             } else {
-                $check = $con->prepare('SELECT Anzahl from AnteilsBesitz WHERE AId = ? AND KId = ?');
-                $res = $check->execute(array($aid, $_COOKIE['user']));
-                $aktien = $check->fetchAll();
-
-                $besitz = 0;
-                foreach($aktien as $aktie){
-                    $besitz += $aktie['Anzahl'];
-                }
-
-
-                if($besitz >= $anzahl){
-                    $result = $stmt->execute(array($aid, $_COOKIE['user'], $ask, $wert, $anzahl, $bid));
-                } else {
-                    $result = false;
-                }
-
-            }
-
-            if($result){
-                $aktienWert = wertermittlung($aid);
-                echo $aktienWert;
-                if($aktienWert != false){
-                    $stmt = $con->prepare('INSERT INTO Wert (AId, Wert) VALUES (?, ?)');
-                    $res = $stmt->execute(array($aid, $aktienWert));
-                    echo $res;
-                    
-                    transaktion($aid);
-                }
-
-                header('Location: ../../');
-                exit();
-                echo 'Die Order wurde erfolgreich in Auftrag gegeben.';
-                $showForm = false;
-            } else {
-                echo 'Es ist ein Fehler aufgetreten<br>';
+                $result = false;
             }
         }
-
-
+        if ($result) {
+            $aktienWert = wertermittlung($aid);
+            echo $aktienWert;
+            if ($aktienWert != false) {
+                $stmt = $con->prepare('INSERT INTO Wert (AId, Wert) VALUES (?, ?)');
+                $res = $stmt->execute(array($aid, $aktienWert));
+                echo $res;
+                transaktion($aid);
+            }
+            header('Location: ../../');
+            exit();
+            echo 'Die Order wurde erfolgreich in Auftrag gegeben.';
+            $showForm = false;
+        } else {
+            echo 'Es ist ein Fehler aufgetreten<br>';
+        }
     }
-
-
-    if($showForm){
+}
+if ($showForm) {
 ?>
 
 
@@ -114,17 +90,17 @@ ini_set('display_errors', 1);
     </head> 
     <body style="background: rgb(255,246,232); padding-top: 10rem;">
     <?php
-            if(checkLoginhtml()){
-                include('../../../view/header_log.php');
-            } else {
-                include('../../../view/header.php');
-            }
-        ?>
+    if (checkLoginhtml()) {
+        include ('../../../view/header_log.php');
+    } else {
+        include ('../../../view/header.php');
+    }
+?>
     <h1 class="text-center mb-4">Handeln</h1>
     <div class="row mb-3">
           <div class="col-lg-4 themed-grid-col"></div>
           <div class="col-lg-4 themed-grid-col">
-          <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+          <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         Aktien-Id:<br>
         <input type="text" size="40" maxlength="250" name="aid"><br><br>
         
@@ -147,20 +123,19 @@ ini_set('display_errors', 1);
     </form>
 
     <?php
-        $stmt = $con->prepare('SELECT * from Bankverbindung WHERE KId = ?');
-        $result = $stmt->execute(array($_COOKIE['user']));
-        $index = 1;
-        while($res = $stmt->fetch()){
-            echo '<li>'.$index.' | | '.$res['BIC'].' | | '.$res['IBAN'].' | | ';
-            if($res['Aktiv']){
-                echo 'Aktiv</li>';
-            } else {
-                echo 'Inaktiv</li>';
-            }
-            $index++;
+    $stmt = $con->prepare('SELECT * from Bankverbindung WHERE KId = ?');
+    $result = $stmt->execute(array($_COOKIE['user']));
+    $index = 1;
+    while ($res = $stmt->fetch()) {
+        echo '<li>' . $index . ' | | ' . $res['BIC'] . ' | | ' . $res['IBAN'] . ' | | ';
+        if ($res['Aktiv']) {
+            echo 'Aktiv</li>';
+        } else {
+            echo 'Inaktiv</li>';
         }
-
-    ?>
+        $index++;
+    }
+?>
 
 
     <p>
@@ -175,10 +150,9 @@ ini_set('display_errors', 1);
 
 
     <?php
-        }
-
-    ?>
-    <?php include('../../../view/footer.php'); ?>
+}
+?>
+    <?php include ('../../../view/footer.php'); ?>
     <script src="../../../styles/bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

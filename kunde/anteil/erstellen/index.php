@@ -1,55 +1,40 @@
 <?php
-
-    include('../../../tools/functions.php');
-    checkAllPages();
-	
-	if(!checkLogin()){
-        header('Location: ../../login');
-        exit();
+include ('../../../tools/functions.php');
+checkAllPages();
+if (!checkLogin()) {
+    header('Location: ../../login');
+    exit();
+}
+//Datenbankverbindung erstellen
+$con = getDBConnection();
+//Variablen
+$showForm = true;
+//Logik
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $kid = $_COOKIE['user'];
+    $Anzahl = $_POST['Anzahl'];
+    $Beschreibung = $_POST['Beschreibung'];
+    $error = false;
+    //PrÃ¼fen ob Felder ausgefÃ¼llt
+    if (empty($Anzahl) || empty($Beschreibung)) {
+        echo 'Alle Felder ausfÃ¼llen<br>';
+        $error = true;
     }
-
-    //Datenbankverbindung erstellen
-    $con = getDBConnection();
-
-
-    //Variablen
-    $showForm = true;
-
-
-    //Logik
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        $kid = $_COOKIE['user'];
-        $Anzahl = $_POST['Anzahl'];
-        $Beschreibung = $_POST['Beschreibung'];
-
-        $error = false;
-	
-		//PrÃ¼fen ob Felder ausgefÃ¼llt
-		if(empty($Anzahl) || empty($Beschreibung)){
-			echo 'Alle Felder ausfÃ¼llen<br>';
-			$error = true;
-		}
-
-        //Kein Fehler => EinfÃ¼gen
-		if(!$error){
-            $stmt = $con->prepare('INSERT INTO Anteil (Anzahl, Beschreibung, KId)
+    //Kein Fehler => EinfÃ¼gen
+    if (!$error) {
+        $stmt = $con->prepare('INSERT INTO Anteil (Anzahl, Beschreibung, KId)
                                     VALUES (?, ?, ?)');
-
-            $result = $stmt->execute(array($Anzahl, $Beschreibung, $kid));
-			
-			if($result){
-                header('Location: ../../');
-                exit();
-                echo 'Der Anteil wurde erfolgreich erstellt. Weiter zum Dashboard';
-                $showForm = false;
-            } else {
-                echo 'Es ist ein Fehler aufgetreten<br>';
-            }
-			
-		}
-	}
+        $result = $stmt->execute(array($Anzahl, $Beschreibung, $kid));
+        if ($result) {
+            header('Location: ../../');
+            exit();
+            echo 'Der Anteil wurde erfolgreich erstellt. Weiter zum Dashboard';
+            $showForm = false;
+        } else {
+            echo 'Es ist ein Fehler aufgetreten<br>';
+        }
+    }
+}
 ?>
 
 
@@ -73,12 +58,12 @@
 </head>
 <body style="background: rgb(255,246,232); padding-top: 10rem;">
     <?php
-            if(checkLoginhtml()){
-                include('../../../view/header_log.php');
-            } else {
-                include('../../../view/header.php');
-            }
-        ?>
+if (checkLoginhtml()) {
+    include ('../../../view/header_log.php');
+} else {
+    include ('../../../view/header.php');
+}
+?>
     <h1 class="text-center mb-4">Anteil erstellen</h1>
     <div class="row mb-3">
           <div class="col-lg-4 themed-grid-col"></div>
@@ -88,7 +73,7 @@
     <!--Hier wird ein Form erstellt -->
 
     <section>
-      <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <label>AId:</label>
           <br><input type="int" name="AId"></br>
         <label>Anzahl:</label>
@@ -103,7 +88,7 @@
           </div>
           <div class="col-lg-4 themed-grid-col"></div>
     </div>
-    <?php include('../../../view/footer.php'); ?>
+    <?php include ('../../../view/footer.php'); ?>
     <script src="../../../styles/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
