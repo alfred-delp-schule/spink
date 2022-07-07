@@ -11,3 +11,6 @@
             </div>
         </div>
 </nav>
+<div class="alert alert-secondary mx-5" role="alert">
+            Diese Seite dient auschließlich zur Demonstration und ist nicht für den Produktivzweck gedacht.
+ </div>
