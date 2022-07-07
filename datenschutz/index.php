@@ -36,7 +36,7 @@
             }
         ?>
 
-<h1 class="text-center">Impressum</h1>
+<h1 class="text-center mb-4">Datenschutzerklärung</h1>
 
 <div class="row mb-3">
           <div class="col-lg-4 themed-grid-col"></div>
