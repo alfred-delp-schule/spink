@@ -6,12 +6,11 @@
                 <li class="list-inline-item" style="margin-right: 24px;"><a class="link-secondary" href="/impressum">Impressum</a></li>
                 <li class="list-inline-item" style="margin-right: 8px;"><a class="link-secondary" href="/datenschutz">Datenschutzerklärung</a></li>
             </ul>
-            <p class="mb-0" style="font-family: ClashDisplay-Variable;">Copyright © <span id="year_span"></span> SPINK</p>
+            <p class="mb-0" style="font-family: ClashDisplay-Variable;">Copyright ©
+            <?php #echo current year
+                $year = date('Y');
+                echo $year;
+             ?>
+              SPINK</p>
         </div>
     </footer>
-
-<script>
-    // Get the current year for the copyright
-    // Set the current year in year_span
-    $('#year_span').text(new Date().getFullYear());
-</script>
