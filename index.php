@@ -1,3 +1,8 @@
+<?php
+	include('tools/functions.php');
+	checkAllPages();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +23,13 @@
 </head>
 
 <body style="background: rgb(255,246,232); padding-top: 10rem;">
-    <?php include('./view/header.php'); ?>
+	<?php
+		if(checkLoginhtml()){
+			include('./view/header_log.php');
+		} else {
+			include('./view/header.php');
+		}
+	?>
     <section class="py-4 py-xl-5">
         <div class="container h-100">
             <div class="row h-100">

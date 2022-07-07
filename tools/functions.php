@@ -16,6 +16,14 @@
             return false;
         }
     }
+	
+	function checkLoginhtml(){
+        if(isset($_COOKIE['user'])){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     function refreshLogin(){
         setcookie('user', $_COOKIE['user'], time() + 300, '/', 'spink-trade.de', true, true);
@@ -94,7 +102,7 @@
         $verkaufen = $stmt->fetchAll();
 
         //Check genügend orders <kaufen>
-        if(count($kaufen) < 5 || count($verkaufen) < 5){
+        if(count($kaufen) < 8 || count($verkaufen) < 5){
             echo 'weniger 5<br>';
             return false;
         }
