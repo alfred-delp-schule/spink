@@ -33,7 +33,6 @@
             echo 'Die Anmeldung war Erfolgreich.<br>
                         Weiter zum <a href="../public/marktplatz.php"> Marktplatz </a>';
             $showForm = false;
-
         }else {
             echo 'Passwort und oder Email sind Falsch<br>';
         }
