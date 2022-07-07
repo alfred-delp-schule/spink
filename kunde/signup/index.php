@@ -1,6 +1,6 @@
 <?php
 
-    include('../tools/functions.php');
+    include('../../tools/functions.php');
     checkAllPages();
 
     //Datenbankverbindung erstellen
@@ -64,6 +64,8 @@
             $result = $stmt->execute(array($email, $pwhash, $ort, $plz, $str, $hnr, $name, $vname));
 
             if($result){
+                header('Location: ../login');
+                exit();
                 echo 'Die Registrierung war Erfolgreich.<br>
                         Weiter zum <a href="login.php"> Login </a>';
                 $showForm = false;
@@ -117,8 +119,8 @@
 
 
         <p>
-            Zum <a href="login.php"> Login </a><br>
-            Zur <a href="../index.html"> Startseite </a><br>
+            Zum <a href="../login"> Login </a><br>
+            Zur <a href="../../"> Startseite </a><br>
 
         </p>
 

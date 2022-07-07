@@ -1,10 +1,11 @@
 <?php
 
-    include('../tools/functions.php');
+    include('../../../tools/functions.php');
     checkAllPages();
 
-    if(!checkProvLogin()){
-        redirectStart();
+    if(!checkLogin()){
+        header('Location: ../../login');
+        exit();
     }
 
     //Datenbankverbindung erstellen
@@ -26,15 +27,15 @@
         $error = false;
 
         //Prüfen auf vollständige Eingabe
-        if(empty($blz) || empty($bic) || empty($kontoArt) || empty($KontoNr) || empty($iban)){
+        if(empty($bic) || empty($iban)){
             echo 'Bitte alle Felder ausfüllen<br>';
             $error = true;
         }
 
         //Prüfen ob Konto bereits hinterlegt
         if(!$error){
-            $stmt = $con->prepare('SELECT IBAN from Bankverbindung WHERE PId = ?');
-            $result = $stmt->execute(array($_COOKIE['prov']));
+            $stmt = $con->prepare('SELECT IBAN from Bankverbindung WHERE KId = ?');
+            $result = $stmt->execute(array($_COOKIE['user']));
 
             while($konto = $stmt->fetch()){
                 if($konto['IBAN'] === $iban){
@@ -46,12 +47,13 @@
 
         //Konto hinterlegen
         if(!$error){
-            $stmt = $con->prepare('INSERT INTO Bankverbindung (PId, BLZ, BIC, KontoArt, KontoNr, IBAN, Aktiv)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?)');
-            $result = $stmt->execute(array($_COOKIE['prov'], $blz, $bic, $kontoArt, $KontoNr, $iban, false));
+            $stmt = $con->prepare('INSERT INTO Bankverbindung (KId, BIC, IBAN, Aktiv)
+                                    VALUES (?, ?, ?, ?)');
+            $result = $stmt->execute(array($_COOKIE['user'], $bic, $iban, false));
 
             if($result){
-                redirectKonto();
+                header('Location: ../../');
+                exit();
                 echo 'Die Bankverbindung wurde erfolgreich hinterlegt.';
                 $showForm = false;
             } else {
@@ -76,17 +78,9 @@
     <body>
 
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-            Bankleitzahl:<br>
-            <input type="text" size="40" maxlength="12" name="blz"><br><br>
             
             BIC:<br>
-            <input type="text" size="40"  maxlength="12" name="bic"><br><br>
-            
-            Konto Art:<br>
-            <input type="text" size="40" maxlength="50" name="kontoArt"><br><br>
-
-            Konto Nummer:<br>
-            <input type="number" size="40" maxlength="10" name="kontoNr"><br><br>
+            <input type="text" size="40"  maxlength="11" name="bic"><br><br>
 
             IBAN:<br>
             <input type="text" size="40" maxlength="30" name="iban"><br><br>
@@ -95,8 +89,8 @@
         </form>
 
         <p>
-            Zum <a href="konto.php"> Konto </a><br>
-            Zur <a href="../index.html"> Startseite </a><br>
+            Zum <a href="../../"> Konto </a><br>
+            Zur <a href="../../../"> Startseite </a><br>
 
         </p>
 
