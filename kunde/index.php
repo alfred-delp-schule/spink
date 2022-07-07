@@ -74,6 +74,42 @@
                 ?>
             </ul>
         </div>
+
+        <?php
+            $stmt = $con->prepare('SELECT * from AnteilsBesitz WHERE KId = ? order by AId ASC');
+            $result = $stmt->execute(array($_COOKIE['user']));
+            $anteile = $stmt->fetchAll();
+            //if($anteile){
+        ?>
+        <div>
+            <h2>
+                Portfolio
+            </h2>
+            <table border="1">
+                <?php
+                echo '<tr><td>AnteilNr</td><td>Anzahl</td><td>Momentaner Wert</td></tr>';
+                foreach($anteile as $anteil){
+                    $stmt = $con->prepare('SELECT Wert from Wert WHERE AId = ? order by Zeitpunkt DESC');
+                    $res = $stmt->execute(array($anteil['AId']));
+                    $wert = $stmt->fetch()['Wert'];
+                    echo '<tr>';
+                    echo '<td>'.$anteil['AId'].'</td>';
+                    echo '<td>'.$anteil['Anzahl'].'</td>';
+                    echo '<td>';
+                    if($wert){
+                        echo $wert.'</td>';
+                    } else {
+                        echo 'Nicht Verfügbar</td>';
+                    }
+                    echo '</tr>';
+                }
+                ?>
+            </table>
+        </div>
+
+        <?php
+            //}
+        ?>
         
 
     </body>
