@@ -3,8 +3,8 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link active" href="https://spink-trade.de" style="font-family: ClashDisplay-Variable;">HOME</a></li>
-                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="/public" style="font-family: ClashDisplay-Variable;">MARKTPLATZ</a></li>
-                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link" href="/faq" style="font-family: ClashDisplay-Variable;">FAQ</a></li>
+                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link active" href="/public" style="font-family: ClashDisplay-Variable;">MARKTPLATZ</a></li>
+                    <li class="nav-item" style="font-family: ClashDisplay-Variable;"><a class="nav-link active" href="/faq" style="font-family: ClashDisplay-Variable;">FAQ</a></li>
                 </ul>
                 <a class="btn btn-primary py-3 px-4 mx-4" href="/kunde/login" style="font-family: ClashDisplay-Variable; background-color: rgb(239, 240, 236); border-color: rgba(0, 0, 0, 0); color: black; border-radius: 10px;">LOG IN</a>
                 <a class="btn btn-primary py-3 px-4 rounded-pill" href="/kunde/signup" style="font-family: ClashDisplay-Variable; background-color: rgb(30, 35, 48); border-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255);">SIGN UP</a>
